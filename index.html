@@ -48,33 +48,6 @@
       color: #bbb;
     }
 
-    .faq {
-      font-size: 1.1em;
-      margin-top: 40px;
-      text-align: left;
-      background-color: rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      border-radius: 8px;
-    }
-
-    .faq h2 {
-      color: #00ff99;
-    }
-
-    .faq ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    .faq li {
-      margin: 10px 0;
-      color: #bbb;
-    }
-
-    .faq li:hover {
-      color: #ff0080;
-    }
-
     .highlight {
       background: #222;
       border-radius: 5px;
@@ -120,6 +93,8 @@
       transition: box-shadow 0.4s ease, transform 0.2s;
       box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
       margin-top: 20px;
+      width: 100%;
+      max-width: 300px;
     }
 
     #telegram-button:hover, #toggle-commands:hover {
@@ -218,15 +193,40 @@
 
     .buttons-container {
       display: flex;
-      gap: 50px;
+      flex-direction: column;
+      gap: 20px;
       justify-content: center;
       margin-top: 30px;
+      width: 100%;
+    }
+
+    /* Мобильные стили */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.5em;
+      }
+
+      .buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+      }
+
+      #telegram-button, #toggle-commands {
+        width: 80%;
+        max-width: 300px;
+      }
+
+      .content {
+        padding: 10px;
+      }
     }
 
   </style>
 </head>
 <body>
-  <h1>Игровой чат-бот FernieUIBot</h1>
+  <h1>Игровой<br>чат-бот<br>FernieUIBot</h1>
   <div class="content">
     <p>Этот бот поможет вам в игре, предоставляет все необходимые команды и поддержку в любое время!</p>
     <p>Просто нажмите на кнопку ниже, чтобы перейти в наш телеграм-бот и начать использовать все его возможности.</p>
@@ -286,15 +286,6 @@
         </ul>
       </ul>
     </div>
-
-    <div class="faq">
-      <h2>F.A.Q</h2>
-      <ul>
-        <li><strong>Что делает этот бот?</strong> — Этот бот предоставляет собой прекрасный способ весело провести время в чате с друзьями.</li>
-        <li><strong>Где найти команды?</strong> — Нажмите кнопку "Список команд", чтобы увидеть все доступные команды или используйте меню в боте. <span class="highlight">/я > настройки > команды</span></li>
-      </ul>
-    </div>
-
   </div>
 
   <script>
