@@ -21,14 +21,13 @@
     }
 
     h1 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
+      font-size: 3em;
+      margin-bottom: 30px;
       background: linear-gradient(45deg, #00f, #ff0080, #00ff00, #ffff00);
       background-size: 400% 400%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: shimmer 5s ease infinite;
-      text-align: center;
     }
 
     @keyframes shimmer {
@@ -90,11 +89,21 @@
     }
 
     @keyframes highlight-glow {
-      0% { box-shadow: 0 0 8px rgba(255, 0, 255, 1); }
-      25% { box-shadow: 0 0 8px rgba(0, 255, 255, 1); }
-      50% { box-shadow: 0 0 8px rgba(0, 255, 0, 1); }
-      75% { box-shadow: 0 0 8px rgba(255, 255, 0, 1); }
-      100% { box-shadow: 0 0 8px rgba(255, 0, 255, 1); }
+      0% {
+        box-shadow: 0 0 8px rgba(255, 0, 255, 1);
+      }
+      25% {
+        box-shadow: 0 0 8px rgba(0, 255, 255, 1);
+      }
+      50% {
+        box-shadow: 0 0 8px rgba(0, 255, 0, 1);
+      }
+      75% {
+        box-shadow: 0 0 8px rgba(255, 255, 0, 1);
+      }
+      100% {
+        box-shadow: 0 0 8px rgba(255, 0, 255, 1);
+      }
     }
 
     #telegram-button, #toggle-commands {
@@ -103,7 +112,7 @@
       color: white;
       border: none;
       padding: 15px 30px;
-      font-size: 1.2em;
+      font-size: 1.3em;
       font-weight: bold;
       border-radius: 10px;
       cursor: pointer;
@@ -176,8 +185,7 @@
       transform: translateY(30px);
       max-height: 0;
       overflow-y: hidden;
-      transition: all 0.5s ease;
-      height: 0;
+      transition: opacity 0.8s ease, transform 0.8s ease, max-height 0.8s ease;
     }
 
     .command-section.visible {
@@ -208,28 +216,11 @@
       color: #ff0080;
     }
 
-    /* Изменение расстояний между кнопками */
     .buttons-container {
       display: flex;
-      flex-direction: column;
-      gap: 20px;
+      gap: 50px;
       justify-content: center;
       margin-top: 30px;
-    }
-
-    @media (min-width: 600px) {
-      h1 {
-        font-size: 3em;
-      }
-
-      .buttons-container {
-        flex-direction: row;
-        gap: 50px;
-      }
-
-      .faq {
-        font-size: 1.2em;
-      }
     }
 
   </style>
@@ -241,7 +232,7 @@
     <p>Просто нажмите на кнопку ниже, чтобы перейти в наш телеграм-бот и начать использовать все его возможности.</p>
 
     <div class="buttons-container">
-      <button id="telegram-button" onclick="window.location.href='https://t.me/FernieUIBot'">Перейти в бота</button>
+      <button id="telegram-button" onclick="window.location.href='https://t.me/FernieUIBot'">Перейти в бот</button>
       <button id="toggle-commands" onclick="toggleCommands()">Список команд</button>
     </div>
 
@@ -283,32 +274,33 @@
           <li>/payday, /пд — Зарплата.</li>
           <li>/promo — Ввести промокод.</li>
           <li>/rate — Узнать курс монеты.</li>
+          <li>/taxi — Такси (монеты и бонусы).</li>
         </ul>
 
-        <h3>🛍 Магазин и улучшения</h3>
+        <h3>🔧 Настройки</h3>
         <ul>
-          <li>/buy — Купить предмет.</li>
-          <li>/shop — Магазин.</li>
-          <li>/points, /баллы — Баллы игрока.</li>
-        </ul>
-
-        <h3>🚖 Такси и игры</h3>
-        <ul>
-          <li>/taxi — Статистика и доступные заказы таксиста.</li>
-          <li>/chat — Чат с игроками.</li>
+          <li>/settings — Настройки.</li>
+          <li>/setlang — Язык бота.</li>
+          <li>/game — Перезапуск игры.</li>
+          <li>/clear — Очистить чат.</li>
         </ul>
       </ul>
     </div>
 
-    <div class="cta">
-      <p>По всем вопросам обращайтесь к <a href="https://t.me/OwnerTelegram">владельцу</a> или <a href="https://t.me/DevTelegram">разработчику</a>.</p>
+    <div class="faq">
+      <h2>F.A.Q</h2>
+      <ul>
+        <li><strong>Что делает этот бот?</strong> — Этот бот предоставляет собой прекрасный способ весело провести время в чате с друзьями.</li>
+        <li><strong>Где найти команды?</strong> — Нажмите кнопку "Список команд", чтобы увидеть все доступные команды или используйте меню в боте. <span class="highlight">/я > настройки > команды</span></li>
+      </ul>
     </div>
+
   </div>
 
   <script>
     function toggleCommands() {
-      const commandsList = document.getElementById("commands-list");
-      commandsList.classList.toggle("visible");
+      const commandsList = document.getElementById('commands-list');
+      commandsList.classList.toggle('visible');
     }
   </script>
 </body>
