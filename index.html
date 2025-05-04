@@ -18,6 +18,8 @@
       padding: 20px;
       box-sizing: border-box;
       overflow-y: auto;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
     }
 
     h1 {
@@ -27,7 +29,7 @@
       background-size: 400% 400%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: shimmer 5s ease infinite;
+      animation: shimmer 5s ease infinite, fadeInUp 2s ease forwards;
     }
 
     @keyframes shimmer {
@@ -36,16 +38,59 @@
       100% { background-position: 0% 50%; }
     }
 
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
     .content {
       text-align: center;
       max-width: 1000px;
       width: 100%;
+      opacity: 0;
+      animation: fadeInUp 2s ease 1s forwards;
     }
 
     p {
       font-size: 1.2em;
       margin-bottom: 20px;
       color: #bbb;
+      opacity: 0;
+      animation: fadeInUp 2s ease 1.5s forwards;
+    }
+
+    .faq {
+      font-size: 1.1em;
+      margin-top: 40px;
+      text-align: left;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 8px;
+      opacity: 0;
+      animation: fadeInUp 2s ease 2s forwards;
+    }
+
+    .faq h2 {
+      color: #00ff99;
+    }
+
+    .faq ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .faq li {
+      margin: 10px 0;
+      color: #bbb;
+    }
+
+    .faq li:hover {
+      color: #ff0080;
     }
 
     .highlight {
@@ -89,12 +134,10 @@
       font-weight: bold;
       border-radius: 10px;
       cursor: pointer;
-      animation: buttonGlow 8s ease infinite;
+      animation: buttonGlow 8s ease infinite, fadeInUp 2s ease 2.5s forwards;
       transition: box-shadow 0.4s ease, transform 0.2s;
       box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
       margin-top: 20px;
-      width: 100%;
-      max-width: 300px;
     }
 
     #telegram-button:hover, #toggle-commands:hover {
@@ -116,6 +159,8 @@
       margin-top: 40px;
       font-size: 1.1em;
       color: #aaa;
+      opacity: 0;
+      animation: fadeInUp 2s ease 3s forwards;
     }
 
     .cta a {
@@ -133,6 +178,8 @@
       background-color: rgba(0, 0, 0, 0.6);
       border-radius: 10px;
       width: 100%;
+      opacity: 0;
+      animation: fadeInUp 2s ease 3.5s forwards;
     }
 
     .info-section h3 {
@@ -157,15 +204,15 @@
       background-color: rgba(0, 0, 0, 0.75);
       border-radius: 10px;
       opacity: 0;
-      transform: translateY(30px);
+      transform: scale(0.8);
       max-height: 0;
       overflow-y: hidden;
-      transition: opacity 0.8s ease, transform 0.8s ease, max-height 0.8s ease;
+      transition: all 0.8s ease;
     }
 
     .command-section.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: scale(1);
       max-height: 1000px;
       height: auto;
       overflow-y: auto;
@@ -193,40 +240,17 @@
 
     .buttons-container {
       display: flex;
-      flex-direction: row;
-      gap: 20px;
+      gap: 50px;
       justify-content: center;
       margin-top: 30px;
-      width: 100%;
-    }
-
-    /* Мобильные стили */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2.5em;
-      }
-
-      .buttons-container {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        align-items: center;
-      }
-
-      #telegram-button, #toggle-commands {
-        width: 80%;
-        max-width: 300px;
-      }
-
-      .content {
-        padding: 10px;
-      }
+      opacity: 0;
+      animation: fadeInUp 2s ease 3.5s forwards;
     }
 
   </style>
 </head>
 <body>
-  <h1>Игровой<br>чат-бот<br>FernieUIBot</h1>
+  <h1>Игровой чат-бот FernieUIBot</h1>
   <div class="content">
     <p>Этот бот поможет вам в игре, предоставляет все необходимые команды и поддержку в любое время!</p>
     <p>Просто нажмите на кнопку ниже, чтобы перейти в наш телеграм-бот и начать использовать все его возможности.</p>
@@ -237,20 +261,41 @@
     </div>
 
     <div id="commands-list" class="command-section">
-      <h3>F.A.Q</h3>
+      <h3>Команды бота</h3>
       <ul>
-        <li><b>Что такое FernieUIBot?</b> Это игровой чат-бот, который предоставляет различные функции и команды для удобства игрока.</li>
-        <li><b>Как начать игру?</b> Просто нажмите на кнопку "Перейти в бот" и начните взаимодействовать с ботом.</li>
-        <li><b>Какие команды доступны?</b> Вы можете использовать команды для управления своим профилем, получения бонусов, а также для общения с администраторами.</li>
-        <li><b>Что делать, если не могу найти команду?</b> Напишите в техподдержку, команда будет добавлена в ближайшее обновление.</li>
+        <h2>Команды бота</h2>
+        <h3>👤 Профиль и идентификация</h3>
+        <ul>
+          <li>/start — Начать игру.</li>
+          <li>/menu — Главное меню.</li>
+          <li>/cid — Узнать свой Telegram ID.</li>
+          <li>/me, /я, /кто я — Информация о себе.</li>
+          <li>/owner, /владелец — Контакты владельца.</li>
+          <li>/dev, /разраб — Контакты разработчика.</li>
+          <li>/teh, /тех — Тех. поддержка.</li>
+        </ul>
       </ul>
+    </div>
+
+    <div class="faq">
+      <h2>F.A.Q</h2>
+      <ul>
+        <li>Как начать играть? Нажмите "/start".</li>
+        <li>Что делать, если я не могу найти команду? Используйте команду "/help".</li>
+        <li>Где найти список всех команд? Нажмите на кнопку "Список команд".</li>
+        <li>Как получить помощь? Напишите в чат "Тех. поддержке" или используйте команду "/teh".</li>
+      </ul>
+    </div>
+
+    <div class="cta">
+      <p>Задайте любые вопросы в чате или напишите нам по адресу: <a href="mailto:support@fernieworld.com">support@fernieworld.com</a></p>
     </div>
   </div>
 
   <script>
     function toggleCommands() {
-      const commandsList = document.getElementById('commands-list');
-      commandsList.classList.toggle('visible');
+      const commandSection = document.getElementById('commands-list');
+      commandSection.classList.toggle('visible');
     }
   </script>
 </body>
