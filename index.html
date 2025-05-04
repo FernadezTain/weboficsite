@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Игровой чат-бот FernieUIBot</title>
   <style>
-    /* Общие стили для тела страницы */
+    /* Общие стили */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
@@ -20,19 +20,16 @@
       transition: background-color 0.3s, color 0.3s;
     }
 
-    /* Темная тема */
-    .dark-theme {
-      background-color: #111;
-      color: #fff;
+    .dark-theme { background-color: #111; color: #fff; }
+    .light-theme { background-color: #fff; color: #111; }
+
+    /* Анимация появления */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
     }
 
-    /* Светлая тема */
-    .light-theme {
-      background-color: #fff;
-      color: #111;
-    }
-
-    /* Кнопка переключения темы */
+    /* Кнопка смены темы */
     #theme-toggle-btn {
       position: fixed;
       top: 20px;
@@ -46,7 +43,9 @@
       font-weight: bold;
       border-radius: 10px;
       cursor: pointer;
-      animation: colorShift 5s linear infinite;
+      animation: colorShift 5s linear infinite, fadeIn 1.5s ease 0.5s forwards;
+      opacity: 0;
+      transform: scale(0.8);
       transition: box-shadow 0.4s ease, transform 0.2s, background 0.6s ease;
       box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
     }
@@ -60,20 +59,12 @@
       transform: scale(0.95);
     }
 
-    /* Анимация перелива */
     @keyframes colorShift {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    /* Заголовок */
     h1 {
       font-size: 3em;
       margin-bottom: 30px;
@@ -95,7 +86,6 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* Контент */
     .content {
       text-align: center;
       max-width: 1000px;
@@ -112,7 +102,6 @@
       animation: fadeInUp 2s ease 1.5s forwards;
     }
 
-    /* FAQ */
     .faq {
       font-size: 1.1em;
       margin-top: 40px;
@@ -124,25 +113,11 @@
       animation: fadeInUp 2s ease 2s forwards;
     }
 
-    .faq h2 {
-      color: #00ff99;
-    }
+    .faq h2 { color: #00ff99; }
+    .faq ul { list-style-type: none; padding: 0; }
+    .faq li { margin: 10px 0; color: #bbb; }
+    .faq li:hover { color: #ff0080; }
 
-    .faq ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    .faq li {
-      margin: 10px 0;
-      color: #bbb;
-    }
-
-    .faq li:hover {
-      color: #ff0080;
-    }
-
-    /* Кнопки */
     .buttons-container {
       display: flex;
       gap: 50px;
@@ -177,14 +152,12 @@
       transform: scale(0.95);
     }
 
-    /* Анимации для кнопок */
     @keyframes buttonGlow {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    /* Команды */
     .command-section {
       margin-top: 40px;
       padding: 20px;
@@ -205,10 +178,7 @@
       overflow-y: auto;
     }
 
-    .command-section h3 {
-      color: #00ff99;
-    }
-
+    .command-section h3 { color: #00ff99; }
     .command-section ul {
       list-style-type: none;
       padding: 0;
@@ -221,23 +191,10 @@
       border-bottom: 1px solid #333;
     }
 
-    .command-section li:hover {
-      color: #ff0080;
-    }
-
-    /* Контейнер для кнопок */
-    .buttons-container {
-      display: flex;
-      gap: 50px;
-      justify-content: center;
-      margin-top: 30px;
-      opacity: 0;
-      animation: fadeInUp 2s ease 3.5s forwards;
-    }
+    .command-section li:hover { color: #ff0080; }
   </style>
 </head>
 <body class="dark-theme">
-  <!-- Кнопка переключения темы -->
   <button id="theme-toggle-btn" onclick="toggleTheme()">🌙 / 🌞</button>
 
   <h1>Игровой чат-бот FernieUIBot</h1>
@@ -253,14 +210,11 @@
     <div id="commands-list" class="command-section">
       <h3>📜 Список команд:</h3>
       <ul>
-        <li><strong>👤 Профиль и идентификация:</strong> /start, /menu, /cid, /me, /я, /кто я /тех</li>
-        <li><strong>🛠 Админ-панель / Разработка:</strong> /apanel, /ahelp, /alist, /warn, /spec, /cur, /owner, /владелец, /dev, /разраб, /teh, /astats, /th, /compensation, /eshop, /ebuy, /ehbuy, /eset</li>
-        <li><strong>💰 Финансы и бонусы:</strong> /pay, /ac, /aj, /bonus, /бонус, /payday, /пд, /promo, /pl, /hack, /aedit, /rti, /upd, /3bonus</li>
-        <li><strong>🏦 Бизнес:</strong> /bname, /bmy, /bshop, /bbuy, /bsell, /bcprofit, /bbonus, /bup</li>
-        <li><strong>🛍 Магазин / Экономика:</strong> /купить, /продать</li>
-        <li><strong>🚕 Такси:</strong> /taxi [Кнопки]: Выполнить заказ / Рейтинг</li>
-        <li><strong>🏕 Ферма, охота и казино:</strong> /farm, /ферма, /охота, /казино, /банк</li>
-        <li><strong>⚠ Модерация:</strong> /warn </li>
+        <li><strong>👤 Профиль:</strong> /start, /menu, /me</li>
+        <li><strong>🛠 Админка:</strong> /ahelp, /warn, /owner</li>
+        <li><strong>💰 Бонусы:</strong> /bonus, /payday</li>
+        <li><strong>🚕 Такси:</strong> /taxi</li>
+        <li><strong>🏕 Ферма:</strong> /farm, /казино</li>
       </ul>
     </div>
   </div>
@@ -276,18 +230,14 @@
   </div>
 
   <script>
-    let darkTheme = true;
-
     function toggleTheme() {
-      const body = document.body;
-      body.classList.toggle('dark-theme');
-      body.classList.toggle('light-theme');
-      darkTheme = !darkTheme;
+      document.body.classList.toggle('dark-theme');
+      document.body.classList.toggle('light-theme');
     }
 
     function toggleCommands() {
-      const commandsList = document.getElementById('commands-list');
-      commandsList.classList.toggle('visible');
+      const commands = document.getElementById('commands-list');
+      commands.classList.toggle('visible');
     }
   </script>
 </body>
