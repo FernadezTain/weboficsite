@@ -259,11 +259,11 @@
     }
   </style>
 </head>
-<body class="light-theme">
+<body class="dark-theme">
   <button id="theme-toggle-btn" onclick="toggleTheme()">Сменить тему</button>
   <div class="content">
     <h1>Добро пожаловать в FernieUIBot!</h1>
-    <p>Это интерактивный бот с множеством полезных функций.</p>
+    <p>Этот бот создан для развлечения в чате с друзьями. Присоединяйтесь, играйте, соревнуйтесь и получайте удовольствие от игры!</p>
 
     <div class="buttons-container">
       <button id="telegram-button" onclick="window.location.href = 'https://t.me/FernieUIBot'">Перейти в Telegram</button>
@@ -345,13 +345,13 @@
 
   <script>
     function toggleTheme() {
-      const body = document.body;
-      body.classList.toggle('dark-theme');
-      body.classList.toggle('light-theme');
+      var body = document.body;
+      body.classList.toggle("dark-theme");
+      body.classList.toggle("light-theme");
     }
 
     function toggleSection(section) {
-      const sectionElement = document.getElementById(`${section}-list`);
+      var sectionElement = document.getElementById(section + '-list');
       sectionElement.classList.toggle('visible');
     }
   </script>
