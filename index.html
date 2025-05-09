@@ -23,16 +23,10 @@
     .dark-theme { background-color: #111; color: #fff; }
     .light-theme { background-color: #fff; color: #111; }
 
-    /* Праздничные анимации */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    /* Кнопка смены темы */
+    /* Кнопка смены темы - теперь закреплена вверху */
     #theme-toggle-btn {
       position: fixed;
-      top: 20px;
+      top: 10px; /* Установим чуть ниже для лучшего размещения */
       left: 20px;
       background: linear-gradient(45deg, #ff7f00, #d70000, #ff7f00, #d70000);
       background-size: 400% 400%;
@@ -44,10 +38,11 @@
       border-radius: 10px;
       cursor: pointer;
       animation: colorShift 5s linear infinite, fadeIn 1.5s ease 0.5s forwards;
-      opacity: 0;
-      transform: scale(0.8);
+      opacity: 1;
+      transform: scale(1);
       transition: box-shadow 0.4s ease, transform 0.2s, background 0.6s ease;
       box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
+      z-index: 1000; /* Убедимся, что кнопка находится поверх всего */
     }
 
     #theme-toggle-btn:hover {
@@ -253,11 +248,11 @@
         font-size: 1em;
       }
 
-      .buttons-container {
-        gap: 10px;
+      .faq {
+        font-size: 0.9em;
       }
 
-      .faq {
+      .command-section ul, .update-section ul {
         font-size: 0.9em;
       }
     }
