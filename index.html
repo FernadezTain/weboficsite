@@ -92,6 +92,7 @@
       width: 100%;
       opacity: 0;
       animation: fadeInUp 2s ease 1s forwards;
+      margin-top: 70px; /* Добавим отступ сверху для текста */
     }
 
     p {
@@ -260,6 +261,15 @@
         font-size: 0.9em;
       }
     }
+
+    /* Мелкий текст внизу страницы */
+    .footer {
+      font-size: 0.8em;
+      text-align: center;
+      color: #bbb;
+      margin-top: 50px;
+      padding: 10px;
+    }
   </style>
 </head>
 <body class="dark-theme">
@@ -267,7 +277,7 @@
 
   <div class="content">
     <h1>Добро пожаловать в FernieUIBot!</h1>
-    <p>Здесь вы можете узнать всю информацию о нашем чат-боте.</p>
+    <p>Это интерактивный бот с множеством полезных функций.</p>
 
     <div class="buttons-container">
       <button id="telegram-button" onclick="window.location.href = 'https://t.me/FernieUIBot'">Перейти в Telegram</button>
@@ -340,6 +350,12 @@
       <li><strong>Что такое система такси?</strong> Система такси позволяет зарабатывать монеты и очки, выполняя заказы как таксист.</li>
       <li><strong>Как использовать магазин?</strong> В магазине можно покупать товары и предметы для улучшения своего профиля.</li>
     </ul>
+  </div>
+
+    <!-- Мелкий текст внизу страницы -->
+    <div class="footer">
+      <p>Все права защищены сервисом FernieUI. Использование данного сервиса подразумевает согласие с условиями и политикой конфиденциальности.</p>
+    </div>
   </div>
 
   <script>
