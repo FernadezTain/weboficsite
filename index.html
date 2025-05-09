@@ -17,13 +17,13 @@
       padding: 20px;
       box-sizing: border-box;
       overflow-y: auto;
-      transition: background-color 0.3s, color 0.3s;
+      transition: background-color 0.5s ease, color 0.5s ease; /* Плавный переход */
     }
 
     .dark-theme { background-color: #111; color: #fff; }
     .light-theme { background-color: #fff; color: #111; }
 
-    /* Анимация появления */
+    /* Праздничные анимации */
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.8); }
       to { opacity: 1; transform: scale(1); }
@@ -34,7 +34,7 @@
       position: fixed;
       top: 20px;
       left: 20px;
-      background: linear-gradient(45deg, #111, #fff, #111, #fff);
+      background: linear-gradient(45deg, #ff7f00, #d70000, #ff7f00, #d70000);
       background-size: 400% 400%;
       color: white;
       border: none;
@@ -51,7 +51,7 @@
     }
 
     #theme-toggle-btn:hover {
-      box-shadow: 0 0 35px rgba(0, 200, 255, 0.9);
+      box-shadow: 0 0 35px rgba(255, 0, 0, 0.9);
       transform: scale(1.05);
     }
 
@@ -68,7 +68,7 @@
     h1 {
       font-size: 3em;
       margin-bottom: 30px;
-      background: linear-gradient(45deg, #00f, #ff0080, #00ff00, #ffff00);
+      background: linear-gradient(45deg, #d70000, #ff7f00, #ff0000, #ffff00);
       background-size: 400% 400%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -113,22 +113,23 @@
       animation: fadeInUp 2s ease 2s forwards;
     }
 
-    .faq h2 { color: #00ff99; }
+    .faq h2 { color: #ffcc00; }
     .faq ul { list-style-type: none; padding: 0; }
     .faq li { margin: 10px 0; color: #bbb; }
     .faq li:hover { color: #ff0080; }
 
     .buttons-container {
       display: flex;
-      gap: 50px;
+      gap: 20px;
       justify-content: center;
       margin-top: 30px;
       opacity: 0;
       animation: fadeInUp 2s ease 3.5s forwards;
+      flex-wrap: wrap; /* Делаем кнопки адаптивными */
     }
 
-    #telegram-button, #toggle-commands {
-      background: linear-gradient(270deg, #00ff00, #ff0080, #ff00ff);
+    #telegram-button, #toggle-commands, #toggle-update {
+      background: linear-gradient(270deg, #ff7f00, #ff0000, #ff7f00);
       background-size: 400% 400%;
       color: white;
       border: none;
@@ -141,14 +142,15 @@
       transition: box-shadow 0.4s ease, transform 0.2s;
       box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
       margin-top: 20px;
+      flex-shrink: 0; /* Блокирует сжатие кнопок */
     }
 
-    #telegram-button:hover, #toggle-commands:hover {
-      box-shadow: 0 0 35px rgba(0, 200, 255, 0.9);
+    #telegram-button:hover, #toggle-commands:hover, #toggle-update:hover {
+      box-shadow: 0 0 35px rgba(255, 0, 0, 0.9);
       transform: scale(1.05);
     }
 
-    #telegram-button:active, #toggle-commands:active {
+    #telegram-button:active, #toggle-commands:active, #toggle-update:active {
       transform: scale(0.95);
     }
 
@@ -158,7 +160,7 @@
       100% { background-position: 0% 50%; }
     }
 
-    .command-section {
+    .command-section, .update-section {
       margin-top: 40px;
       padding: 20px;
       background-color: rgba(0, 0, 0, 0.75);
@@ -170,7 +172,7 @@
       transition: all 0.8s ease;
     }
 
-    .command-section.visible {
+    .command-section.visible, .update-section.visible {
       opacity: 1;
       transform: scale(1);
       max-height: 1000px;
@@ -178,33 +180,97 @@
       overflow-y: auto;
     }
 
-    .command-section h3 { color: #00ff99; }
-    .command-section ul {
+    .command-section h3, .update-section h3 { color: #ffcc00; }
+    .command-section ul, .update-section ul {
       list-style-type: none;
       padding: 0;
       font-size: 1.1em;
       color: #ccc;
     }
 
-    .command-section li {
+    .command-section li, .update-section li {
       padding: 6px 0;
       border-bottom: 1px solid #333;
     }
 
-    .command-section li:hover { color: #ff0080; }
+    .command-section li:hover, .update-section li:hover { color: #ff0080; }
+
+    /* Медиазапросы для мобильных устройств */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+
+      p {
+        font-size: 1.1em;
+      }
+
+      .buttons-container {
+        gap: 10px;
+        flex-direction: column;
+      }
+
+      #theme-toggle-btn {
+        padding: 12px 20px;
+        font-size: 1.1em;
+      }
+
+      #telegram-button, #toggle-commands, #toggle-update {
+        padding: 12px 20px;
+        font-size: 1.1em;
+      }
+
+      .faq {
+        font-size: 1em;
+      }
+
+      .command-section ul, .update-section ul {
+        font-size: 1em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #theme-toggle-btn {
+        padding: 10px 15px;
+        font-size: 1em;
+      }
+
+      #telegram-button, #toggle-commands, #toggle-update {
+        padding: 10px 15px;
+        font-size: 1em;
+      }
+
+      h1 {
+        font-size: 1.8em;
+      }
+
+      p {
+        font-size: 1em;
+      }
+
+      .buttons-container {
+        gap: 10px;
+      }
+
+      .faq {
+        font-size: 0.9em;
+      }
+    }
   </style>
 </head>
 <body class="dark-theme">
-  <button id="theme-toggle-btn" onclick="toggleTheme()">🌙 / 🌞</button>
-
-  <h1>Игровой чат-бот FernieUIBot</h1>
+  <button id="theme-toggle-btn" onclick="toggleTheme()">Сменить тему</button>
+  <h1>Добро пожаловать в FernieUIBot!</h1>
   <div class="content">
-    <p>Этот бот поможет вам в игре, предоставляет все необходимые команды и поддержку в любое время!</p>
-    <p>Просто нажмите на кнопку ниже, чтобы перейти в наш телеграм-бот и начать использовать все его возможности.</p>
-
+    <p>Наш бот предлагает множество полезных функций. Выберите интересующий вас раздел:</p>
     <div class="buttons-container">
-      <button id="telegram-button" onclick="window.location.href='https://t.me/FernieUIBot'">Перейти в бота</button>
-      <button id="toggle-commands" onclick="toggleCommands()">Список команд</button>
+      <button id="telegram-button">Перейти в Telegram</button>
+      <button id="toggle-commands" onclick="toggleSection('commands')">Список команд</button>
+      <button id="toggle-update" onclick="toggleSection('update')">Обновления</button>
     </div>
 
     <div id="commands-list" class="command-section">
@@ -222,6 +288,48 @@
     </div>
   </div>
 
+
+    <div id="update-list" class="update-section">
+      <h3>Обновления  |  FernieUI 10   | 09.05.2025</h3>
+      <ul>
+<p style="text-align: center;">День победы! 9-е мая</p>
+
+<p style="text-align: center;">Новые промокоды</p>
+<ul>
+  <li>🎁 Промокод: 9may</li>
+  <li>💸 Награда: 99,999 монет</li>
+  <li>🔢 Количество активаций: 100</li>
+
+  <li>🎁 Промокод: tgpw</li>
+  <li>💸 Награда: 49,999 монет</li>
+  <li>🔢 Количество активаций: 100</li>
+
+  <li>🎁 Промокод: rv</li>
+  <li>💸 Награда: 49,999 монет</li>
+  <li>🔢 Количество активаций: 100</li>
+</ul>
+<p style="text-align: center;">Техническое обновление</p>
+<p style="text-align: center;">Военные команды:</p>
+<ul>
+  <li>🎖️ /награды — Просмотр наград и медалей.</li>
+  <li>🏅 +награда — Выдача награды пользователю.</li>
+  <li>🏅 -награда — Изъятие награды у пользователя.</li>
+  <li>🎁 /подарок — Получение уникального подарка (лимитированная медаль и монеты в честь 9-го мая).</li>
+  <li>📜 /факты — Интересные факты о Великой Отечественной войне и Современных военных событиях.</li>
+  <li>🎰 /лотерея — Лотерея с шансом на выигрыш уникальных медалей и монет!</li>
+  <li>🏅 /лмедали — Список медалей в лотерее.</li>
+</ul>
+
+<p style="text-align: center;">Другие обновления</p>
+<ul>
+  <li>🎲 /казино — Обновлен интерфейс команды.</li>
+  <li>💰 /дать — Обновлен интерфейс команды.</li>
+  <li>🎟️ /промо — Добавлены новые промокоды.</li>
+</ul>
+
+      </ul>
+    </div>
+
   <div class="faq">
     <h2>❓ Часто задаваемые вопросы</h2>
     <ul>
@@ -233,14 +341,14 @@
   </div>
 
   <script>
-    function toggleTheme() {
-      document.body.classList.toggle('dark-theme');
-      document.body.classList.toggle('light-theme');
+    function toggleSection(section) {
+      var sectionElement = document.getElementById(section + '-list');
+      sectionElement.classList.toggle('visible');
     }
 
-    function toggleCommands() {
-      const commands = document.getElementById('commands-list');
-      commands.classList.toggle('visible');
+    function toggleTheme() {
+      document.body.classList.toggle('light-theme');
+      document.body.classList.toggle('dark-theme');
     }
   </script>
 </body>
