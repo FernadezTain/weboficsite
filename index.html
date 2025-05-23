@@ -123,6 +123,55 @@
       animation: fadeInUp 2s ease 3.5s forwards;
       flex-wrap: wrap; /* Делаем кнопки адаптивными */
     }
+#restore-account-btn {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: linear-gradient(270deg, #ffeb3b, #00c853, #ffeb3b);
+  background-size: 600% 600%;
+  color: white;
+  padding: 10px 16px;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+  z-index: 1000;
+  animation: colorFlow 5s ease infinite;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 90%;
+  word-break: break-word;
+  text-align: center;
+}
+
+#restore-account-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 0, 0.8), 0 0 30px rgba(0, 200, 83, 0.8);
+}
+
+@keyframes colorFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Адаптация под маленькие экраны */
+@media (max-width: 480px) {
+  #restore-account-btn {
+    bottom: 12px;
+    right: 12px;
+    font-size: 0.9rem;
+    padding: 8px 14px;
+    border-radius: 8px;
+  }
+}
+
 
     #telegram-button, #toggle-commands, #toggle-update {
       background: linear-gradient(270deg, #ff7f00, #ff0000, #ff7f00);
@@ -266,7 +315,7 @@
     <p>Этот бот создан для развлечения в чате с друзьями. Присоединяйтесь, играйте, соревнуйтесь и получайте удовольствие от игры!</p>
 
     <div class="buttons-container">
-      <button id="telegram-button" onclick="window.location.href = 'https://t.me/FernieUIBot'">Перейти в Telegram</button>
+      <button id="telegram-button" onclick="window.location.href = 'https://t.me/FernieUIBot'">Перейти в Telegram Бота</button>
       <button id="toggle-commands" onclick="toggleSection('commands')">Список команд</button>
       <button id="toggle-update" onclick="toggleSection('update')">Обновления</button>
     </div>
@@ -286,47 +335,26 @@
     </div>
   </div>
 
-    <div id="update-list" class="update-section">
-      <h3>Обновления  |  FernieUI 10   | 09.05.2025</h3>
-      <ul>
-<p style="text-align: center;">День победы! 9-е мая</p>
+<div id="update-list" class="update-section">
+  <h3>Обновления | FernieUI 12.0 Global | Дата неизвестна</h3>
 
-<p style="text-align: center;">Новые промокоды</p>
-<ul>
-  <li>🎁 Промокод: 9may</li>
-  <li>💸 Награда: 99,999 монет</li>
-  <li>🔢 Количество активаций: 100</li>
+  <p style="text-align: center;">🛠️ Тех. Обновление</p>
 
-  <li>🎁 Промокод: tgpw</li>
-  <li>💸 Награда: 49,999 монет</li>
-  <li>🔢 Количество активаций: 100</li>
+  <p style="text-align: center;">❓Что мы сейчас делаем?</p>
+  <ul>
+    <li>🧠 Пишем нового бота с нуля!</li>
+  </ul>
 
-  <li>🎁 Промокод: rv</li>
-  <li>💸 Награда: 49,999 монет</li>
-  <li>🔢 Количество активаций: 100</li>
-</ul>
-<p style="text-align: center;">Техническое обновление</p>
-<p style="text-align: center;">Военные команды:</p>
-<ul>
-  <li>🎖️ /награды — Просмотр наград и медалей.</li>
-  <li>🏅 +награда — Выдача награды пользователю.</li>
-  <li>🏅 -награда — Изъятие награды у пользователя.</li>
-  <li>🎁 /подарок — Получение уникального подарка (лимитированная медаль и монеты в честь 9-го мая).</li>
-  <li>📜 /факты — Интересные факты о Великой Отечественной войне и Современных военных событиях.</li>
-  <li>🎰 /лотерея — Лотерея с шансом на выигрыш уникальных медалей и монет!</li>
-  <li>🏅 /лмедали — Список медалей в лотерее.</li>
-</ul>
+  <p style="text-align: center;">🤔 Зачем?</p>
+  <ul>
+    <li>⚙️ Чтобы бот работал плавнее и корректнее! Ведь мы переносим его с базы данных .json на более современную SqLite3!</li>
+  </ul>
 
-<p style="text-align: center;">Другие обновления</p>
-<ul>
-  <li>🎲 /казино — Обновлен интерфейс команды.</li>
-  <li>💰 /дать — Обновлен интерфейс команды.</li>
-  <li>🎟️ /промо — Добавлены новые промокоды.</li>
-  <li>🚖 Исправление ошибки в работе Таксиста</li>
-</ul>
+  <p style="text-align: center;">📦 На данный момент бот находится на этапе разработки.</p>
+  <p style="text-align: center;">✅ Набор на тестировщика завершён.</p>
+</div>
 
-      </ul>
-    </div>
+<a href="https://t.me/FernieUIBot?start=rec" id="restore-account-btn" target="_blank">Восстановить аккаунт</a>
 
   <div class="faq">
     <h2>❓ Часто задаваемые вопросы</h2>
