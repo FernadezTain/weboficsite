@@ -123,6 +123,103 @@
       animation: fadeInUp 2s ease 3.5s forwards;
       flex-wrap: wrap; /* Делаем кнопки адаптивными */
     }
+
+    /* Анимация появления */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Анимация исчезновения */
+@keyframes fadeOutScale {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+/* Модалка */
+#restore-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background: #222;
+  color: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #ff0000;
+  z-index: 2000;
+  min-width: 280px;
+  max-width: 90%;
+  text-align: center;
+  font-size: 1.1em;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Показать с анимацией */
+#restore-popup.show {
+  display: block;
+  animation: fadeInScale 0.3s forwards;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Скрыть с анимацией */
+#restore-popup.hide {
+  animation: fadeOutScale 0.3s forwards;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
+/* Затемнение */
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 1999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#overlay.show {
+  display: block;
+  opacity: 1;
+}
+
+#overlay.hide {
+  opacity: 0;
+}
+
+/* Крестик ближе к углу */
+#close-popup {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  font-size: 1.6em;
+  color: white;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  user-select: none;
+}
+    
 #restore-account-btn {
   position: fixed;
   bottom: 16px;
@@ -354,20 +451,12 @@
   <p style="text-align: center;">✅ Набор на тестировщика завершён.</p>
 </div>
 
-  <!-- Всплывающее окно -->
-<div id="restore-popup" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    background: #222; color: white; padding: 20px 30px; border-radius: 12px; box-shadow: 0 0 20px #ff0000;
-    z-index: 2000; min-width: 280px; max-width: 90%; text-align: center; font-size: 1.1em;">
-
-  <button id="close-popup" style="position: absolute; top: 8px; right: 12px; background: transparent; border: none; 
-      font-size: 1.5em; color: white; cursor: pointer;">×</button>
-
+  <div id="restore-popup">
+  <button id="close-popup">×</button>
   Время для восстановления вышло.
 </div>
 
-<!-- Затем добавить "фон" для модалки (затемнение) -->
-<div id="overlay" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.7); z-index: 1999;"></div>
+<div id="overlay"></div>
 
 <a href="#" id="restore-account-btn">Восстановить аккаунт</a>
 
@@ -396,21 +485,49 @@
       var sectionElement = document.getElementById(section + '-list');
       sectionElement.classList.toggle('visible');
     }
-    document.getElementById('restore-account-btn').addEventListener('click', function(event) {
-  event.preventDefault(); // Отменяем переход по ссылке
-  document.getElementById('restore-popup').style.display = 'block';
-  document.getElementById('overlay').style.display = 'block';
+const popup = document.getElementById('restore-popup');
+const overlay = document.getElementById('overlay');
+const closeBtn = document.getElementById('close-popup');
+const restoreBtn = document.getElementById('restore-account-btn');
+
+function showPopup() {
+  popup.classList.remove('hide');
+  popup.classList.add('show');
+  overlay.classList.remove('hide');
+  overlay.classList.add('show');
+  popup.style.display = 'block';
+  overlay.style.display = 'block';
+}
+
+function hidePopup() {
+  popup.classList.remove('show');
+  popup.classList.add('hide');
+  overlay.classList.remove('show');
+  overlay.classList.add('hide');
+
+  // По окончании анимации скрываем полностью
+  popup.addEventListener('animationend', () => {
+    if (popup.classList.contains('hide')) {
+      popup.style.display = 'none';
+    }
+  }, { once: true });
+
+  // Для overlay скрываем после перехода opacity
+  setTimeout(() => {
+    if (overlay.classList.contains('hide')) {
+      overlay.style.display = 'none';
+    }
+  }, 300);
+}
+
+restoreBtn.addEventListener('click', function(event) {
+  event.preventDefault();
+  showPopup();
 });
 
-document.getElementById('close-popup').addEventListener('click', function() {
-  document.getElementById('restore-popup').style.display = 'none';
-  document.getElementById('overlay').style.display = 'none';
-});
+closeBtn.addEventListener('click', hidePopup);
+overlay.addEventListener('click', hidePopup);
 
-document.getElementById('overlay').addEventListener('click', function() {
-  document.getElementById('restore-popup').style.display = 'none';
-  document.getElementById('overlay').style.display = 'none';
-});
 
   </script>
 </body>
