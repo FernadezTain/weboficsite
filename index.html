@@ -124,6 +124,112 @@
       flex-wrap: wrap; /* Делаем кнопки адаптивными */
     }
 
+    #telegram-button, #toggle-commands, #toggle-update {
+      background: linear-gradient(270deg, #ff7f00, #ff0000, #ff7f00);
+      background-size: 400% 400%;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.3em;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      animation: buttonGlow 8s ease infinite, fadeInUp 2s ease 2.5s forwards;
+      transition: box-shadow 0.4s ease, transform 0.2s;
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
+      margin-top: 20px;
+      flex-shrink: 0; /* Блокирует сжатие кнопок */
+    }
+
+    #telegram-button:hover, #toggle-commands:hover, #toggle-update:hover {
+      box-shadow: 0 0 35px rgba(255, 0, 0, 0.9);
+      transform: scale(1.05);
+    }
+
+    #telegram-button:active, #toggle-commands:active, #toggle-update:active {
+      transform: scale(0.95);
+    }
+
+    @keyframes buttonGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .command-section, .update-section {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.75);
+      border-radius: 10px;
+      opacity: 0;
+      transform: scale(0.8);
+      max-height: 0;
+      overflow-y: hidden;
+      transition: all 0.8s ease;
+    }
+
+    .command-section.visible, .update-section.visible {
+      opacity: 1;
+      transform: scale(1);
+      max-height: 1000px;
+      height: auto;
+      overflow-y: auto;
+    }
+
+    .command-section h3, .update-section h3 { color: #ffcc00; }
+    .command-section ul, .update-section ul {
+      list-style-type: none;
+      padding: 0;
+      font-size: 1.1em;
+      color: #ccc;
+    }
+
+    .command-section li, .update-section li {
+      padding: 6px 0;
+      border-bottom: 1px solid #333;
+    }
+
+    .command-section li:hover, .update-section li:hover { color: #ff0080; }
+
+    /* Медиазапросы для мобильных устройств */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+
+      p {
+        font-size: 1.1em;
+      }
+
+      .buttons-container {
+        gap: 10px;
+        flex-direction: column;
+      }
+
+      #theme-toggle-btn {
+        padding: 12px 20px;
+        font-size: 1.1em;
+        display: none; /* Скрываем кнопку на мобильных устройствах */
+      }
+
+      #telegram-button, #toggle-commands, #toggle-update {
+        padding: 12px 20px;
+        font-size: 1.1em;
+      }
+
+      .faq {
+        font-size: 1em;
+      }
+
+      .command-section ul, .update-section ul {
+        font-size: 1em;
+      }
+    }
+
     /* Анимация появления */
 @keyframes fadeInScale {
   0% {
@@ -269,112 +375,6 @@
   }
 }
 
-
-    #telegram-button, #toggle-commands, #toggle-update {
-      background: linear-gradient(270deg, #ff7f00, #ff0000, #ff7f00);
-      background-size: 400% 400%;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.3em;
-      font-weight: bold;
-      border-radius: 10px;
-      cursor: pointer;
-      animation: buttonGlow 8s ease infinite, fadeInUp 2s ease 2.5s forwards;
-      transition: box-shadow 0.4s ease, transform 0.2s;
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
-      margin-top: 20px;
-      flex-shrink: 0; /* Блокирует сжатие кнопок */
-    }
-
-    #telegram-button:hover, #toggle-commands:hover, #toggle-update:hover {
-      box-shadow: 0 0 35px rgba(255, 0, 0, 0.9);
-      transform: scale(1.05);
-    }
-
-    #telegram-button:active, #toggle-commands:active, #toggle-update:active {
-      transform: scale(0.95);
-    }
-
-    @keyframes buttonGlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .command-section, .update-section {
-      margin-top: 40px;
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.75);
-      border-radius: 10px;
-      opacity: 0;
-      transform: scale(0.8);
-      max-height: 0;
-      overflow-y: hidden;
-      transition: all 0.8s ease;
-    }
-
-    .command-section.visible, .update-section.visible {
-      opacity: 1;
-      transform: scale(1);
-      max-height: 1000px;
-      height: auto;
-      overflow-y: auto;
-    }
-
-    .command-section h3, .update-section h3 { color: #ffcc00; }
-    .command-section ul, .update-section ul {
-      list-style-type: none;
-      padding: 0;
-      font-size: 1.1em;
-      color: #ccc;
-    }
-
-    .command-section li, .update-section li {
-      padding: 6px 0;
-      border-bottom: 1px solid #333;
-    }
-
-    .command-section li:hover, .update-section li:hover { color: #ff0080; }
-
-    /* Медиазапросы для мобильных устройств */
-    @media (max-width: 768px) {
-      body {
-        padding: 10px;
-      }
-
-      h1 {
-        font-size: 2em;
-      }
-
-      p {
-        font-size: 1.1em;
-      }
-
-      .buttons-container {
-        gap: 10px;
-        flex-direction: column;
-      }
-
-      #theme-toggle-btn {
-        padding: 12px 20px;
-        font-size: 1.1em;
-        display: none; /* Скрываем кнопку на мобильных устройствах */
-      }
-
-      #telegram-button, #toggle-commands, #toggle-update {
-        padding: 12px 20px;
-        font-size: 1.1em;
-      }
-
-      .faq {
-        font-size: 1em;
-      }
-
-      .command-section ul, .update-section ul {
-        font-size: 1em;
-      }
-    }
 
     @media (max-width: 480px) {
       #telegram-button, #toggle-commands, #toggle-update {
