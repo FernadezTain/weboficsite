@@ -354,7 +354,22 @@
   <p style="text-align: center;">✅ Набор на тестировщика завершён.</p>
 </div>
 
-<a href="https://t.me/FernieUIBot?start=rec" id="restore-account-btn" target="_blank">Восстановить аккаунт</a>
+  <!-- Всплывающее окно -->
+<div id="restore-popup" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: #222; color: white; padding: 20px 30px; border-radius: 12px; box-shadow: 0 0 20px #ff0000;
+    z-index: 2000; min-width: 280px; max-width: 90%; text-align: center; font-size: 1.1em;">
+
+  <button id="close-popup" style="position: absolute; top: 8px; right: 12px; background: transparent; border: none; 
+      font-size: 1.5em; color: white; cursor: pointer;">×</button>
+
+  Время для восстановления вышло.
+</div>
+
+<!-- Затем добавить "фон" для модалки (затемнение) -->
+<div id="overlay" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); z-index: 1999;"></div>
+
+<a href="#" id="restore-account-btn">Восстановить аккаунт</a>
 
   <div class="faq">
     <h2>❓ Часто задаваемые вопросы</h2>
@@ -370,7 +385,6 @@
       <p>Все права защищены сервисом FernieUI. Использование данного сервиса подразумевает согласие с условиями и политикой конфиденциальности.</p>
     </div>
   </div>
-
   <script>
     function toggleTheme() {
       var body = document.body;
@@ -382,6 +396,22 @@
       var sectionElement = document.getElementById(section + '-list');
       sectionElement.classList.toggle('visible');
     }
+    document.getElementById('restore-account-btn').addEventListener('click', function(event) {
+  event.preventDefault(); // Отменяем переход по ссылке
+  document.getElementById('restore-popup').style.display = 'block';
+  document.getElementById('overlay').style.display = 'block';
+});
+
+document.getElementById('close-popup').addEventListener('click', function() {
+  document.getElementById('restore-popup').style.display = 'none';
+  document.getElementById('overlay').style.display = 'none';
+});
+
+document.getElementById('overlay').addEventListener('click', function() {
+  document.getElementById('restore-popup').style.display = 'none';
+  document.getElementById('overlay').style.display = 'none';
+});
+
   </script>
 </body>
 </html>
