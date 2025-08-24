@@ -59,7 +59,7 @@ menuButtons.forEach(btn => {
     sections.forEach(sec => sec.classList.remove('visible'));
 
     // показываем выбранную секцию
-    const sectionId = btn.dataset.section;
+    const sectionId = btn.getAttribute('data-section');
     document.getElementById(sectionId).classList.add('visible');
 
     // плавная прокрутка к секции
@@ -68,14 +68,14 @@ menuButtons.forEach(btn => {
 });
 
 // ----------------------
-// Функция плавной прокрутки к секции
+// Функция плавной прокрутки
 function scrollToSection(section) {
   let yOffset = -20; // смещение для меню
   let element;
 
-  if(section === 'home') element = document.querySelector('.content');
-  else if(section === 'news') element = document.getElementById('update-list');
-  else if(section === 'tech') element = document.querySelector('.faq');
+  if(section === 'home') element = document.querySelector('#home');
+  else if(section === 'news') element = document.querySelector('#news');
+  else if(section === 'tech') element = document.querySelector('#tech');
 
   if(element) {
     const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
