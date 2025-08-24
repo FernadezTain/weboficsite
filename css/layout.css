@@ -133,18 +133,21 @@ p {
 }
 
 .footer {
-  text-align: center;        /* центрируем текст */
-  color: white;              /* белый текст */
-  padding: 20px 10px;        /* отступы сверху/снизу */
-  background-color: #141414; /* тёмный сплошной фон */
-  font-size: 0.8em;          /* чуть меньше шрифт */
-  backdrop-filter: none;     /* отключаем любые фильтры */
-  opacity: 1;                /* полностью непрозрачный */
+  text-align: center;       /* центрируем текст */
+  color: white;             /* белый текст */
+  padding: 20px 10px;       /* отступы сверху/снизу и по бокам */
+  background-color: rgb(20,20,20); /* полностью непрозрачный цвет */
+  opacity: 1;               /* точная непрозрачность */
+  backdrop-filter: none;    /* отключаем размытие */
+  box-shadow: none;         /* убираем тень */
+  font-size: 0.8em;         /* чуть меньше шрифт */
 }
+
 .footer a {
-  color: #ffcc00;           
+  color: #ffcc00;           /* ссылки желтые */
   text-decoration: none;
 }
+
 .footer a:hover {
   text-decoration: underline;
 }
