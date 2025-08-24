@@ -11,29 +11,44 @@ const sections = document.querySelectorAll('.menu-section');
 
 menuButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    // Активная кнопка
+    // Обновляем активную кнопку
     menuButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    // Показываем секцию
+    // Показываем нужную секцию и скрываем остальные
     sections.forEach(sec => {
-      sec.classList.remove('visible');
-      if(sec.id === btn.dataset.section) {
+      if(sec.id === btn.dataset.section){
         sec.classList.add('visible');
+      } else {
+        sec.classList.remove('visible');
       }
     });
 
-    // Анимация для home
+    // Анимация главной секции
     if(btn.dataset.section === 'home') animateHomeSection();
+
+    // Скролл к секции (для news и tech)
+    if(btn.dataset.section !== 'home') scrollToSection(btn.dataset.section);
   });
 });
 
-// === Анимация Home ===
+// === Плавная прокрутка к секции ===
+function scrollToSection(sectionId) {
+  const element = document.getElementById(sectionId);
+  if(element && element.offsetHeight > 0) {
+    const yOffset = -20;
+    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+
+// === Анимация Главной секции ===
 function animateHomeSection() {
   const home = document.getElementById('home');
   const textEls = home.querySelectorAll('h1, p');
   const telegramBtn = document.getElementById('telegram-button');
 
+  // Анимация текста
   textEls.forEach((el, i) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
@@ -44,6 +59,7 @@ function animateHomeSection() {
     }, i * 150);
   });
 
+  // Анимация кнопки Telegram
   telegramBtn.style.opacity = '0';
   telegramBtn.style.transform = 'translateY(30px)';
   setTimeout(() => {
