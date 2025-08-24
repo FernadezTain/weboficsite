@@ -133,13 +133,16 @@ p {
 }
 
 .footer {
-  text-align: center;       
-  color: white;             
-  padding: 20px 10px;       
-  background: rgba(20,20,20,1);
-  backdrop-filter: none;
-  font-size: 0.8em; 
+  text-align: center;
+  color: white;
+  padding: 20px 10px;
+  background-color: rgb(20,20,20); /* используем полностью непрозрачный цвет */
+  opacity: 1;                       /* точно задаём полную непрозрачность */
+  backdrop-filter: none !important; /* принудительно отключаем все фильтры */
+  mix-blend-mode: normal;           /* отключаем смешивание слоёв */
+  font-size: 0.8em;
 }
+
 
 .footer a {
   color: #ffcc00;           
