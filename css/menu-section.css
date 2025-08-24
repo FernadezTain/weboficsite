@@ -1,25 +1,18 @@
 .menu-section {
-  display: none; /* скрываем все секции */
+  display: none; /* скрываем секции по умолчанию */
   opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  transition: all 0.4s ease;
+  transition: opacity 0.4s ease;
   color: white;
   padding: 0 20px;
 }
 
-/* Показываем выбранную секцию */
 .menu-section.visible {
-  display: flex; /* обязательно display: flex */
+  display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
   text-align: center;
-  min-height: calc(100vh - 100px);
   opacity: 1;
-  max-height: 2000px;
-  padding: 20px;
-  pointer-events: auto; /* клики включены */
+  min-height: calc(100vh - 100px);
 }
 
 
