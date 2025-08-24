@@ -1,10 +1,11 @@
-// Переключение темы
-document.getElementById('theme-toggle-btn').addEventListener('click', () => {
+// === Переключение темы ===
+const themeBtn = document.getElementById('theme-toggle-btn');
+themeBtn.addEventListener('click', () => {
   document.body.classList.toggle('dark-theme');
   document.body.classList.toggle('light-theme');
 });
 
-// Модальное окно
+// === Модальное окно ===
 const popup = document.getElementById('restore-popup');
 const overlay = document.getElementById('overlay');
 const closeBtn = document.getElementById('close-popup');
@@ -17,7 +18,6 @@ function showPopup() {
   overlay.classList.add('show');
   popup.style.display = 'block';
   overlay.style.display = 'block';
-  overlay.style.pointerEvents = 'auto';
 }
 
 function hidePopup() {
@@ -25,73 +25,90 @@ function hidePopup() {
   popup.classList.add('hide');
   overlay.classList.remove('show');
   overlay.classList.add('hide');
+
   popup.addEventListener('animationend', () => {
     if (popup.classList.contains('hide')) popup.style.display = 'none';
   }, { once: true });
+
   setTimeout(() => {
-    if (overlay.classList.contains('hide')) {
-      overlay.style.display = 'none';
-      overlay.style.pointerEvents = 'none';
-    }
+    if (overlay.classList.contains('hide')) overlay.style.display = 'none';
   }, 300);
 }
 
-restoreBtn.addEventListener('click', e => { e.preventDefault(); showPopup(); });
+restoreBtn.addEventListener('click', e => {
+  e.preventDefault();
+  showPopup();
+});
+
 closeBtn.addEventListener('click', hidePopup);
 overlay.addEventListener('click', hidePopup);
 
-// Нижнее меню – переключение секций
+// === Нижнее меню — переключение секций ===
 const menuButtons = document.querySelectorAll('.bottom-menu .menu-btn');
 const sections = document.querySelectorAll('.menu-section');
 
 menuButtons.forEach(btn => {
   btn.addEventListener('click', () => {
+    // Активная кнопка
     menuButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    sections.forEach(sec => sec.classList.remove('visible'));
+
+    // Показываем выбранную секцию
+    sections.forEach(sec => {
+      sec.classList.remove('visible');
+      sec.style.pointerEvents = 'none';
+    });
 
     const sectionId = btn.dataset.section;
     const section = document.getElementById(sectionId);
     section.classList.add('visible');
+    section.style.pointerEvents = 'auto';
 
+    // Анимация для Главной секции
     if(sectionId === 'home') animateHomeSection();
+
     scrollToSection(sectionId);
   });
 });
 
-// Плавная прокрутка
-function scrollToSection(section) {
-  let yOffset = -20;
-  let element = document.getElementById(section);
+// === Плавная прокрутка к секции ===
+function scrollToSection(sectionId) {
+  const yOffset = -20;
+  const element = document.getElementById(sectionId);
   if(element) {
     const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
     window.scrollTo({ top: y, behavior: 'smooth' });
   }
 }
 
-// Анимация главной секции
+// === Анимация Главной секции ===
 function animateHomeSection() {
   const section = document.getElementById('home');
   const textElements = section.querySelectorAll('h1, p');
   const telegramBtn = document.getElementById('telegram-button');
 
+  // Анимация текста
   textElements.forEach((el, i) => {
-    el.style.animation = 'none';
-    void el.offsetWidth;
-    el.style.animation = `slideTextUp 0.6s ease-out forwards ${0.1 + i*0.1}s`;
-    el.style.pointerEvents = 'auto';
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    setTimeout(() => {
+      el.style.transition = 'all 0.6s ease-out';
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, i * 100);
   });
 
-  telegramBtn.style.animation = 'none';
-  void telegramBtn.offsetWidth;
-  telegramBtn.style.animation = 'slideButtonUpHome 0.6s ease-out forwards 0.3s';
-  telegramBtn.addEventListener('animationend', () => {
+  // Анимация кнопки Telegram
+  telegramBtn.style.opacity = '0';
+  telegramBtn.style.transform = 'translateY(30px)';
+  setTimeout(() => {
+    telegramBtn.style.transition = 'all 0.6s ease-out';
     telegramBtn.style.opacity = '1';
-    telegramBtn.style.pointerEvents = 'auto';
-  }, { once: true });
+    telegramBtn.style.transform = 'translateY(0)';
+  }, 300);
 }
 
-// Запуск анимации при загрузке
+// === Запуск анимации при загрузке страницы ===
 window.addEventListener('load', () => {
   animateHomeSection();
 });
