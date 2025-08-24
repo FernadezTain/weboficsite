@@ -1,20 +1,20 @@
-.menu-section {
-  display: none; /* скрываем секции по умолчанию */
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  color: white;
-  padding: 0 20px;
-}
-
-.menu-section.visible {
-  display: flex;
+.menu-section { 
+  display: flex; /* теперь flex по умолчанию */
   flex-direction: column;
   align-items: center;
   text-align: center;
-  opacity: 1;
+  opacity: 0;          /* изначально прозрачные */
+  pointer-events: none; /* чтобы на них нельзя было кликнуть, пока невидимы */
+  transition: opacity 0.4s ease;
+  color: white;
+  padding: 0 20px;
   min-height: calc(100vh - 100px);
 }
 
+.menu-section.visible {
+  opacity: 1;
+  pointer-events: auto; /* кликабельны только видимые */
+}
 
 /* Центрируем контент главной секции */
 #home {
@@ -25,12 +25,14 @@
 #home h1, #home p {
   opacity: 0;
   transform: translateY(20px);
+  transition: all 0.6s ease-out;
 }
 
 /* Кнопка Telegram — анимация */
 #home #telegram-button {
   opacity: 0;
   transform: translateY(30px);
+  transition: all 0.6s ease-out;
 }
 
 /* Новости */
@@ -48,14 +50,3 @@
 /* FAQ виден только на главной */
 .faq { display: none; }
 #home .faq { display: block; margin-top: 40px; }
-
-/* Анимации */
-@keyframes slideTextUp {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideButtonUpHome {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
