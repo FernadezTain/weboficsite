@@ -132,21 +132,19 @@ p {
   p { font-size: 1em; }
 }
 
+/* footer.css или в вашем layout.css */
 .footer {
-  text-align: center;        /* центрируем текст */
-  color: white;              /* белый текст */
-  padding: 20px 10px;        /* отступы */
-  background-color: #141414; /* сплошной тёмный фон */
-  font-size: 0.8em;          /* чуть меньше шрифт */
-  position: relative;        /* просто для безопасности */
-  z-index: 10;               /* над другими слоями */
+  text-align: center;       /* центрируем текст */
+  color: white;             /* белый текст */
+  padding: 20px 10px;       /* отступы сверху/снизу и по бокам */
+  background: rgba(20,20,20,0.5); /* полупрозрачный фон, чтобы смотрелось на любой секции */
+  backdrop-filter: blur(5px);     /* размытие фона под футером */
+  font-size: 0.9em;
 }
-
 .footer a {
-  color: #ffcc00;           
+  color: #ffcc00;           /* ссылки в футере желтые */
   text-decoration: none;
 }
-
 .footer a:hover {
   text-decoration: underline;
 }
