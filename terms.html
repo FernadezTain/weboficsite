@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Условия использования FernieX</title>
   <style>
-    /* Общие стили */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       line-height: 1.6;
@@ -15,43 +14,43 @@
       color: #f0f0f0;
     }
 
-    /* Контейнер */
+    /* Контейнер с переливающимися гранями */
     .container {
       max-width: 900px;
       margin: 40px auto;
-      padding: 20px 40px;
+      padding: 30px 40px;
       background: rgba(0,0,0,0.7);
       border-radius: 20px;
-      box-shadow: 0 0 20px #00ffff;
+      border: 3px solid;
+      border-image: linear-gradient(45deg, #00ffff, #ff00ff, #ffea00, #00ff00, #00ffff);
+      border-image-slice: 1;
+      animation: neon-border 5s linear infinite;
     }
 
-    h1, h2 {
-      font-family: 'Courier New', Courier, monospace;
-      color: #00ffff;
-      text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
+    @keyframes neon-border {
+      0% { border-image-source: linear-gradient(45deg, #00ffff, #ff00ff, #ffea00, #00ff00, #00ffff); }
+      25% { border-image-source: linear-gradient(45deg, #ff00ff, #ffea00, #00ff00, #00ffff, #ff00ff); }
+      50% { border-image-source: linear-gradient(45deg, #ffea00, #00ff00, #00ffff, #ff00ff, #ffea00); }
+      75% { border-image-source: linear-gradient(45deg, #00ff00, #00ffff, #ff00ff, #ffea00, #00ff00); }
+      100% { border-image-source: linear-gradient(45deg, #00ffff, #ff00ff, #ffea00, #00ff00, #00ffff); }
     }
 
-    h1 { font-size: 2.5em; margin-bottom: 20px; }
-    h2 { font-size: 1.8em; margin-top: 30px; }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #f0f0f0;
+    }
+    h2 {
+      font-size: 1.8em;
+      margin-top: 30px;
+      color: #f0f0f0;
+    }
 
     p {
       margin: 10px 0;
       color: #e0f7fa;
     }
 
-    /* Ссылки */
-    a {
-      color: #ff00ff;
-      text-decoration: none;
-      text-shadow: 0 0 5px #ff00ff;
-      transition: 0.3s;
-    }
-    a:hover {
-      color: #00ffff;
-      text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
-    }
-
-    /* Футер */
     footer {
       text-align: center;
       margin-top: 40px;
@@ -59,11 +58,20 @@
       color: #888;
       font-size: 0.9em;
     }
+
+    a {
+      color: #ff00ff;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    a:hover {
+      color: #00ffff;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>📜 Условия использования</h1>
+    <h1>📜 Условия использования FernieX</h1>
 
     <h2>1. Общие положения</h2>
     <p>Настоящие Условия использования (далее – «Условия») регулируют порядок предоставления доступа к Telegram-боту <strong>FernieX</strong> (далее – «Бот») и его функционалу, включая игровые механики и инструменты модерации (муты, баны, предупреждения и др.).</p>
