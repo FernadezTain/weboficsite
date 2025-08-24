@@ -44,6 +44,7 @@ closeBtn.addEventListener('click', hidePopup);
 overlay.addEventListener('click', hidePopup);
 
 // === Нижнее меню — переключение секций ===
+// Нижнее меню — переключение секций
 const menuButtons = document.querySelectorAll('.bottom-menu .menu-btn');
 const sections = document.querySelectorAll('.menu-section');
 
@@ -53,21 +54,19 @@ menuButtons.forEach(btn => {
     menuButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    // Показываем выбранную секцию
+    // Показываем выбранную секцию и скрываем остальные
     sections.forEach(sec => {
-      sec.classList.remove('visible');
-      sec.style.pointerEvents = 'none';
+      if(sec.id === btn.dataset.section){
+        sec.classList.add('visible');
+      } else {
+        sec.classList.remove('visible');
+      }
     });
 
-    const sectionId = btn.dataset.section;
-    const section = document.getElementById(sectionId);
-    section.classList.add('visible');
-    section.style.pointerEvents = 'auto';
-
     // Анимация для Главной секции
-    if(sectionId === 'home') animateHomeSection();
+    if(btn.dataset.section === 'home') animateHomeSection();
 
-    scrollToSection(sectionId);
+    scrollToSection(btn.dataset.section);
   });
 });
 
