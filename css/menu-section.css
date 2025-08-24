@@ -1,13 +1,30 @@
 .menu-section {
   display: none;
   padding: 20px;
-  margin-top: 20px;
   transition: all 0.3s ease;
   color: white;
 }
 
+/* Показываем выбранную секцию */
 .menu-section.visible {
   display: block;
+}
+
+/* Центрируем контент главной секции */
+#home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: calc(100vh - 100px); /* учитываем нижнее меню */
+  gap: 20px;
+}
+
+/* Кнопка Telegram */
+#home .buttons-container {
+  display: flex;
+  justify-content: center;
 }
 
 /* Новости */
@@ -22,3 +39,13 @@
 .news-item h3 { margin: 0 0 5px; }
 .news-item p { margin: 0 0 8px; }
 .news-item span { font-size: 0.85em; color: #ffcc00; }
+
+/* FAQ виден только на главной */
+.faq {
+  display: none;
+}
+
+#home .faq {
+  display: block;
+  margin-top: 40px;
+}
