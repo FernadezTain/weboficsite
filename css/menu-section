@@ -1,0 +1,22 @@
+.menu-section {
+  display: none;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.menu-section.visible {
+  display: block;
+}
+
+.news-item {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.news-item h3 { margin: 0 0 5px; }
+.news-item p { margin: 0 0 8px; }
+.news-item span { font-size: 0.85em; color: #ffcc00; }
