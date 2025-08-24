@@ -43,6 +43,7 @@ restoreBtn.addEventListener('click', e => {
 closeBtn.addEventListener('click', hidePopup);
 overlay.addEventListener('click', hidePopup);
 
+// === Нижнее меню — переключение секций ===
 const menuButtons = document.querySelectorAll('.bottom-menu .menu-btn');
 const sections = document.querySelectorAll('.menu-section');
 
@@ -56,8 +57,10 @@ menuButtons.forEach(btn => {
     sections.forEach(sec => {
       if(sec.id === btn.dataset.section){
         sec.classList.add('visible');
+        sec.style.pointerEvents = 'auto';
       } else {
         sec.classList.remove('visible');
+        sec.style.pointerEvents = 'none';
       }
     });
 
@@ -109,4 +112,13 @@ function animateHomeSection() {
 // === Запуск анимации при загрузке страницы ===
 window.addEventListener('load', () => {
   animateHomeSection();
+  
+  // Включаем pointer-events для видимой секции при загрузке
+  sections.forEach(sec => {
+    if(sec.classList.contains('visible')){
+      sec.style.pointerEvents = 'auto';
+    } else {
+      sec.style.pointerEvents = 'none';
+    }
+  });
 });
