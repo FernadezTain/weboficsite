@@ -132,17 +132,17 @@ p {
   p { font-size: 1em; }
 }
 
-/* footer.css или в вашем layout.css */
 .footer {
-  text-align: center;       /* центрируем текст */
-  color: white;             /* белый текст */
-  padding: 20px 10px;       /* отступы сверху/снизу и по бокам */
-  background: rgba(20,20,20,0.5); /* полупрозрачный фон, чтобы смотрелось на любой секции */
-  backdrop-filter: blur(5px);     /* размытие фона под футером */
-  font-size: 0.9em;
+  text-align: center;        /* центрируем текст */
+  color: white;              /* белый текст */
+  padding: 20px 10px;        /* отступы сверху/снизу */
+  background-color: #141414; /* тёмный сплошной фон */
+  font-size: 0.8em;          /* чуть меньше шрифт */
+  backdrop-filter: none;     /* отключаем любые фильтры */
+  opacity: 1;                /* полностью непрозрачный */
 }
 .footer a {
-  color: #ffcc00;           /* ссылки в футере желтые */
+  color: #ffcc00;           
   text-decoration: none;
 }
 .footer a:hover {
