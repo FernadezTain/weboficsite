@@ -100,30 +100,15 @@
   100% { transform: translateY(0); opacity: 1; }
 }
 
-/* Подсветка при наведении */
 .bottom-menu .menu-btn:hover {
   box-shadow: 0 0 15px 5px #ffeb3b;
   transform: scale(1.05);
 }
 
-/* Активная кнопка */
 .bottom-menu .menu-btn.active {
   background: linear-gradient(270deg, #ffff00, #ffcc00, #ffff00);
   transform: scale(1.1);
   box-shadow: 0 0 25px 8px #ffeb3b;
-}
-
-/* Адаптивность */
-@media (max-width: 480px) {
-  .bottom-menu {
-    width: 95%;
-    padding: 8px 12px;
-    gap: 10px;
-  }
-  .bottom-menu .menu-btn {
-    padding: 8px 12px;
-    font-size: 0.9em;
-  }
 }
 
 body { padding-bottom: 100px; }
