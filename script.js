@@ -43,18 +43,16 @@ restoreBtn.addEventListener('click', e => {
 closeBtn.addEventListener('click', hidePopup);
 overlay.addEventListener('click', hidePopup);
 
-// === Нижнее меню — переключение секций ===
-// Нижнее меню — переключение секций
 const menuButtons = document.querySelectorAll('.bottom-menu .menu-btn');
 const sections = document.querySelectorAll('.menu-section');
 
 menuButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    // Активная кнопка
+    // Обновляем активную кнопку
     menuButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    // Показываем выбранную секцию и скрываем остальные
+    // Показываем нужную секцию и скрываем остальные
     sections.forEach(sec => {
       if(sec.id === btn.dataset.section){
         sec.classList.add('visible');
@@ -63,9 +61,10 @@ menuButtons.forEach(btn => {
       }
     });
 
-    // Анимация для Главной секции
+    // Анимация главной секции
     if(btn.dataset.section === 'home') animateHomeSection();
 
+    // Скролл к секции
     scrollToSection(btn.dataset.section);
   });
 });
