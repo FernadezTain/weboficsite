@@ -98,25 +98,20 @@ p {
   100% { background-position: 0% 50%; }
 }
 
-/* Медиазапросы */
+/* Футер */
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  color: #bbb;
+  font-size: 0.95em;
+}
+
+.footer p { margin: 5px 0; }
+
+/* === Медиазапросы === */
 @media (max-width: 768px) {
   body { padding: 10px; }
   h1 { font-size: 2em; }
   p { font-size: 1.1em; }
-}
-@media (max-width: 480px) {
-  h1 { font-size: 1.8em; }
-  p { font-size: 1em; }
-}
-
-/* === Футер === */
-.footer {
-  text-align: center;      /* выравнивание по центру */
-  margin-top: 40px;        /* отступ сверху */
-  color: #bbb;             /* серый цвет как у других p */
-  font-size: 0.95em;       /* чуть меньше размер текста */
-}
-
-.footer p {
-  margin: 5px 0;           /* убираем большие отступы между строками */
-}
+  .faq, .news-item { padding: 15px; border-radius: 10px; }
+  .command-section, .update-section { padding: 15px
