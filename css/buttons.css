@@ -7,6 +7,7 @@
   border-radius: 10px;
   cursor: pointer;
   transition: box-shadow 0.4s ease, transform 0.2s;
+  pointer-events: auto;
 }
 
 #theme-toggle-btn {
@@ -29,6 +30,7 @@
   animation: buttonGlow 8s ease infinite;
   margin-top: 20px;
   flex-shrink: 0;
+  pointer-events: auto;
 }
 
 #telegram-button:hover, #toggle-commands:hover, #toggle-update:hover {
@@ -89,6 +91,7 @@
   animation: buttonGlow 8s ease infinite, slideButtonUp 0.6s ease-out forwards;
   opacity: 0;
   transform: translateY(30px);
+  pointer-events: auto;
 }
 
 .bottom-menu .menu-btn:nth-child(1) { animation-delay: 0.1s, 0s; }
