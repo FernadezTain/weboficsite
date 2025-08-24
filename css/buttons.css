@@ -53,16 +53,17 @@
 .bottom-menu {
   position: fixed;
   bottom: 0;
-  left: 50%;                /* Центр по горизонтали */
-  transform: translateX(-50%); /* Сдвигаем на половину ширины меню */
-  width: 90%;
-  max-width: 600px;
+  left: 50%;                /* центр по экрану */
+  transform: translateX(-50%); /* сдвигаем на половину ширины */
+  width: auto;              /* адаптивная ширина под контент */
+  min-width: 280px;         /* минимальная ширина для мобильных */
+  max-width: 600px;         /* ограничение на больших экранах */
   background: rgba(20,20,20,0.6);
   backdrop-filter: blur(10px);
-  border-radius: 50px 50px 0 0; /* Закругление сверху */
+  border-radius: 50px 50px 0 0;
   padding: 10px 20px;
   display: flex;
-  justify-content: space-around; /* Кнопки равномерно */
+  justify-content: center;  /* кнопки по центру */
   gap: 15px;
   z-index: 1000;
   box-shadow: 0 -5px 25px rgba(0,0,0,0.5);
@@ -70,6 +71,7 @@
   /* Анимация появления снизу */
   animation: slideUp 1s ease-out forwards;
 }
+
 
 /* Анимация движения всего меню вверх */
 @keyframes slideUp {
