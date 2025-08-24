@@ -54,7 +54,24 @@ menuButtons.forEach(btn => {
     sections.forEach(sec => sec.classList.remove('visible'));
 
     const sectionId = btn.dataset.section;
-    document.getElementById(sectionId).classList.add('visible');
+    const section = document.getElementById(sectionId);
+    section.classList.add('visible');
+
+    // Запускаем анимацию для Главной секции
+    if(sectionId === 'home') {
+      const textElements = section.querySelectorAll('h1, p');
+      const telegramBtn = document.getElementById('telegram-button');
+
+      textElements.forEach((el, i) => {
+        el.style.animation = 'none';
+        void el.offsetWidth; // сброс анимации
+        el.style.animation = `slideTextUp 0.6s ease-out forwards ${0.1 + i*0.1}s`;
+      });
+
+      telegramBtn.style.animation = 'none';
+      void telegramBtn.offsetWidth;
+      telegramBtn.style.animation = 'slideButtonUpHome 0.6s ease-out forwards 0.3s';
+    }
 
     scrollToSection(sectionId);
   });
