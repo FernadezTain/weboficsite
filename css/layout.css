@@ -50,10 +50,23 @@ p {
   animation: fadeInUp 2s ease 2s forwards;
 }
 
-.faq h2 { color: #ffcc00; }
-.faq ul { list-style-type: none; padding: 0; }
-.faq li { margin: 10px 0; color: #bbb; }
-.faq li:hover { color: #ff0080; }
+.faq h2 {
+  color: #ffcc00;
+}
+
+.faq ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.faq li {
+  margin: 10px 0;
+  color: #bbb;
+}
+
+.faq li:hover {
+  color: #ff0080;
+}
 
 .command-section, .update-section {
   margin-top: 40px;
@@ -75,7 +88,10 @@ p {
   overflow-y: auto;
 }
 
-.command-section h3, .update-section h3 { color: #ffcc00; }
+.command-section h3, .update-section h3 {
+  color: #ffcc00;
+}
+
 .command-section ul, .update-section ul {
   list-style-type: none;
   padding: 0;
@@ -83,8 +99,14 @@ p {
   color: #ccc;
 }
 
-.command-section li, .update-section li { padding: 6px 0; border-bottom: 1px solid #333; }
-.command-section li:hover, .update-section li:hover { color: #ff0080; }
+.command-section li, .update-section li {
+  padding: 6px 0;
+  border-bottom: 1px solid #333;
+}
+
+.command-section li:hover, .update-section li:hover {
+  color: #ff0080;
+}
 
 /* Анимации */
 @keyframes fadeInUp {
@@ -98,20 +120,14 @@ p {
   100% { background-position: 0% 50%; }
 }
 
-/* Футер */
-.footer {
-  text-align: center;
-  margin-top: 40px;
-  color: #bbb;
-  font-size: 0.95em;
-}
-
-.footer p { margin: 5px 0; }
-
-/* === Медиазапросы === */
+/* Медиазапросы */
 @media (max-width: 768px) {
   body { padding: 10px; }
   h1 { font-size: 2em; }
   p { font-size: 1.1em; }
-  .faq, .news-item { padding: 15px; border-radius: 10px; }
-  .command-section, .update-section { padding: 15px
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 1.8em; }
+  p { font-size: 1em; }
+}
