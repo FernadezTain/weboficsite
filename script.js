@@ -74,3 +74,16 @@ function scrollToSection(section) {
     window.scrollTo({ top: y, behavior: 'smooth' });
   }
 }
+function scrollToSection(section) {
+  let yOffset = -20; // чуть выше меню
+  let element;
+
+  if(section === 'home') element = document.querySelector('.content');
+  else if(section === 'news') element = document.getElementById('update-list');
+  else if(section === 'tech') element = document.querySelector('.faq');
+
+  if(element) {
+    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({top: y, behavior: 'smooth'});
+  }
+}
