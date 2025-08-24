@@ -133,21 +133,20 @@ p {
 }
 
 .footer {
-  text-align: center;
-  color: white;
-  padding: 20px 10px;
-  background-color: rgb(20,20,20); /* используем полностью непрозрачный цвет */
-  opacity: 1;                       /* точно задаём полную непрозрачность */
-  backdrop-filter: none !important; /* принудительно отключаем все фильтры */
-  mix-blend-mode: normal;           /* отключаем смешивание слоёв */
-  font-size: 0.8em;
+  text-align: center;        /* центрируем текст */
+  color: white;              /* белый текст */
+  padding: 20px 10px;        /* отступы */
+  background-color: #141414; /* сплошной тёмный фон */
+  font-size: 0.8em;          /* чуть меньше шрифт */
+  position: relative;        /* просто для безопасности */
+  z-index: 10;               /* над другими слоями */
 }
-
 
 .footer a {
   color: #ffcc00;           
   text-decoration: none;
 }
+
 .footer a:hover {
   text-decoration: underline;
 }
