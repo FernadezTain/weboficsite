@@ -1,10 +1,10 @@
 .menu-section { 
-  display: flex; /* теперь flex по умолчанию */
+  display: none; /* скрываем по умолчанию */
   flex-direction: column;
   align-items: center;
   text-align: center;
-  opacity: 0;          /* изначально прозрачные */
-  pointer-events: none; /* чтобы на них нельзя было кликнуть, пока невидимы */
+  opacity: 0;
+  pointer-events: none;
   transition: opacity 0.4s ease;
   color: white;
   padding: 0 20px;
@@ -12,9 +12,11 @@
 }
 
 .menu-section.visible {
+  display: flex;       /* показываем */
   opacity: 1;
-  pointer-events: auto; /* кликабельны только видимые */
+  pointer-events: auto;
 }
+
 
 /* Центрируем контент главной секции */
 #home {
