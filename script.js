@@ -1,18 +1,11 @@
+// ----------------------
 // Переключение темы
 document.getElementById('theme-toggle-btn').addEventListener('click', () => {
   document.body.classList.toggle('dark-theme');
   document.body.classList.toggle('light-theme');
 });
 
-// Показ/скрытие секций
-document.getElementById('toggle-commands').addEventListener('click', () => {
-  document.getElementById('commands-list').classList.toggle('visible');
-});
-
-document.getElementById('toggle-update').addEventListener('click', () => {
-  document.getElementById('update-list').classList.toggle('visible');
-});
-
+// ----------------------
 // Модальное окно
 const popup = document.getElementById('restore-popup');
 const overlay = document.getElementById('overlay');
@@ -51,31 +44,33 @@ restoreBtn.addEventListener('click', e => {
 closeBtn.addEventListener('click', hidePopup);
 overlay.addEventListener('click', hidePopup);
 
-// ---------------------------------------------------
-// Нижнее меню – плавная прокрутка к секциям
-function scrollToSection(section) {
-  let yOffset = -70; // смещение сверху
-  let element;
+// ----------------------
+// Нижнее меню – переключение секций
+const menuButtons = document.querySelectorAll('.bottom-menu .menu-btn');
+const sections = document.querySelectorAll('.menu-section');
 
-  switch(section) {
-    case 'home':
-      element = document.querySelector('.content');
-      break;
-    case 'news':
-      element = document.getElementById('update-list');
-      break;
-    case 'tech':
-      element = document.querySelector('.faq');
-      break;
-  }
+menuButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // убираем актив с всех кнопок
+    menuButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
-  if(element) {
-    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-    window.scrollTo({ top: y, behavior: 'smooth' });
-  }
-}
+    // скрываем все секции
+    sections.forEach(sec => sec.classList.remove('visible'));
+
+    // показываем выбранную секцию
+    const sectionId = btn.dataset.section;
+    document.getElementById(sectionId).classList.add('visible');
+
+    // плавная прокрутка к секции
+    scrollToSection(sectionId);
+  });
+});
+
+// ----------------------
+// Функция плавной прокрутки к секции
 function scrollToSection(section) {
-  let yOffset = -20; // чуть выше меню
+  let yOffset = -20; // смещение для меню
   let element;
 
   if(section === 'home') element = document.querySelector('.content');
@@ -84,6 +79,6 @@ function scrollToSection(section) {
 
   if(element) {
     const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-    window.scrollTo({top: y, behavior: 'smooth'});
+    window.scrollTo({ top: y, behavior: 'smooth' });
   }
 }
