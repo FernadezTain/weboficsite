@@ -53,25 +53,22 @@
 .bottom-menu {
   position: fixed;
   bottom: 0;
-  left: 50%;                /* центр по экрану */
-  transform: translateX(-50%); /* сдвигаем на половину ширины */
-  width: auto;              /* адаптивная ширина под контент */
-  min-width: 280px;         /* минимальная ширина для мобильных */
-  max-width: 600px;         /* ограничение на больших экранах */
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  min-width: 280px;
+  max-width: 600px;
   background: rgba(20,20,20,0.6);
   backdrop-filter: blur(10px);
   border-radius: 50px 50px 0 0;
   padding: 10px 20px;
   display: flex;
-  justify-content: center;  /* кнопки по центру */
+  justify-content: center;
   gap: 15px;
   z-index: 1000;
   box-shadow: 0 -5px 25px rgba(0,0,0,0.5);
-
-  /* Анимация появления снизу */
   animation: slideUp 1s ease-out forwards;
 }
-
 
 /* Анимация движения всего меню вверх */
 @keyframes slideUp {
@@ -89,7 +86,7 @@
   font-weight: bold;
   border-radius: 30px;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.3s;
+  transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
   font-size: 1em;
 
   /* обе анимации одновременно: градиент + выезд */
@@ -99,6 +96,7 @@
   transform: translateY(30px);
 }
 
+/* Задержка появления для каждой кнопки */
 .bottom-menu .menu-btn:nth-child(1) { animation-delay: 0.1s, 0s; }
 .bottom-menu .menu-btn:nth-child(2) { animation-delay: 0.3s, 0s; }
 .bottom-menu .menu-btn:nth-child(3) { animation-delay: 0.5s, 0s; }
@@ -107,6 +105,19 @@
 @keyframes slideButtonUp {
   0% { transform: translateY(30px); opacity: 0; }
   100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Подсветка при наведении */
+.bottom-menu .menu-btn:hover {
+  box-shadow: 0 0 15px 5px #ffeb3b;
+  transform: scale(1.05);
+}
+
+/* Активная кнопка */
+.bottom-menu .menu-btn.active {
+  background: linear-gradient(270deg, #ffff00, #ffcc00, #ffff00);
+  transform: scale(1.1);
+  box-shadow: 0 0 25px 8px #ffeb3b;
 }
 
 /* Адаптивность */
