@@ -1,0 +1,51 @@
+#theme-toggle-btn, #telegram-button, #toggle-commands, #toggle-update {
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.3em;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.4s ease, transform 0.2s;
+}
+
+#theme-toggle-btn {
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  background: linear-gradient(45deg, #ff7f00, #d70000, #ff7f00, #d70000);
+  background-size: 400% 400%;
+  animation: colorShift 5s linear infinite;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
+  z-index: 1000;
+}
+
+#theme-toggle-btn:hover { transform: scale(1.05); box-shadow: 0 0 35px rgba(255,0,0,0.9); }
+#theme-toggle-btn:active { transform: scale(0.95); }
+
+#telegram-button, #toggle-commands, #toggle-update {
+  background: linear-gradient(270deg, #ff7f00, #ff0000, #ff7f00);
+  background-size: 400% 400%;
+  animation: buttonGlow 8s ease infinite;
+  margin-top: 20px;
+  flex-shrink: 0;
+}
+
+#telegram-button:hover, #toggle-commands:hover, #toggle-update:hover {
+  box-shadow: 0 0 20px 5px yellow;
+  transform: scale(1.05);
+}
+
+#telegram-button:active, #toggle-commands:active, #toggle-update:active { transform: scale(0.95); }
+
+@keyframes colorShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes buttonGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
