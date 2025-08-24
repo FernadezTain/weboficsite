@@ -1,11 +1,9 @@
-// ----------------------
 // Переключение темы
 document.getElementById('theme-toggle-btn').addEventListener('click', () => {
   document.body.classList.toggle('dark-theme');
   document.body.classList.toggle('light-theme');
 });
 
-// ----------------------
 // Модальное окно
 const popup = document.getElementById('restore-popup');
 const overlay = document.getElementById('overlay');
@@ -44,38 +42,32 @@ restoreBtn.addEventListener('click', e => {
 closeBtn.addEventListener('click', hidePopup);
 overlay.addEventListener('click', hidePopup);
 
-// ----------------------
 // Нижнее меню – переключение секций
 const menuButtons = document.querySelectorAll('.bottom-menu .menu-btn');
 const sections = document.querySelectorAll('.menu-section');
 
 menuButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    // убираем актив с всех кнопок
     menuButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    // скрываем все секции
     sections.forEach(sec => sec.classList.remove('visible'));
 
-    // показываем выбранную секцию
-    const sectionId = btn.getAttribute('data-section');
+    const sectionId = btn.dataset.section;
     document.getElementById(sectionId).classList.add('visible');
 
-    // плавная прокрутка к секции
     scrollToSection(sectionId);
   });
 });
 
-// ----------------------
-// Функция плавной прокрутки
+// Функция плавной прокрутки к секции
 function scrollToSection(section) {
-  let yOffset = -20; // смещение для меню
+  let yOffset = -20;
   let element;
 
-  if(section === 'home') element = document.querySelector('#home');
-  else if(section === 'news') element = document.querySelector('#news');
-  else if(section === 'tech') element = document.querySelector('#tech');
+  if(section === 'home') element = document.getElementById('home');
+  else if(section === 'news') element = document.getElementById('news');
+  else if(section === 'tech') element = document.getElementById('tech');
 
   if(element) {
     const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
