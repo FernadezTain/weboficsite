@@ -5,101 +5,45 @@ themeBtn.addEventListener('click', () => {
   document.body.classList.toggle('light-theme');
 });
 
-// === Модальное окно ===
-const popup = document.getElementById('restore-popup');
-const overlay = document.getElementById('overlay');
-const closeBtn = document.getElementById('close-popup');
-const restoreBtn = document.getElementById('restore-account-btn');
-
-function showPopup() {
-  popup.classList.remove('hide');
-  popup.classList.add('show');
-  overlay.classList.remove('hide');
-  overlay.classList.add('show');
-  popup.style.display = 'block';
-  overlay.style.display = 'block';
-}
-
-function hidePopup() {
-  popup.classList.remove('show');
-  popup.classList.add('hide');
-  overlay.classList.remove('show');
-  overlay.classList.add('hide');
-
-  popup.addEventListener('animationend', () => {
-    if (popup.classList.contains('hide')) popup.style.display = 'none';
-  }, { once: true });
-
-  setTimeout(() => {
-    if (overlay.classList.contains('hide')) overlay.style.display = 'none';
-  }, 300);
-}
-
-restoreBtn.addEventListener('click', e => {
-  e.preventDefault();
-  showPopup();
-});
-
-closeBtn.addEventListener('click', hidePopup);
-overlay.addEventListener('click', hidePopup);
-
-// === Нижнее меню — переключение секций ===
+// === Нижнее меню ===
 const menuButtons = document.querySelectorAll('.bottom-menu .menu-btn');
 const sections = document.querySelectorAll('.menu-section');
 
 menuButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    // Обновляем активную кнопку
+    // Активная кнопка
     menuButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    // Показываем нужную секцию и скрываем остальные
+    // Показываем секцию
     sections.forEach(sec => {
-      if(sec.id === btn.dataset.section){
+      sec.classList.remove('visible');
+      if(sec.id === btn.dataset.section) {
         sec.classList.add('visible');
-        sec.style.pointerEvents = 'auto';
-      } else {
-        sec.classList.remove('visible');
-        sec.style.pointerEvents = 'none';
       }
     });
 
-    // Анимация главной секции
+    // Анимация для home
     if(btn.dataset.section === 'home') animateHomeSection();
-
-    // Скролл к секции
-    scrollToSection(btn.dataset.section);
   });
 });
 
-// === Плавная прокрутка к секции ===
-function scrollToSection(sectionId) {
-  const yOffset = -20;
-  const element = document.getElementById(sectionId);
-  if(element) {
-    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-    window.scrollTo({ top: y, behavior: 'smooth' });
-  }
-}
-
-// === Анимация Главной секции ===
+// === Анимация Home ===
 function animateHomeSection() {
-  const section = document.getElementById('home');
-  const textElements = section.querySelectorAll('h1, p');
+  const home = document.getElementById('home');
+  const textEls = home.querySelectorAll('h1, p');
   const telegramBtn = document.getElementById('telegram-button');
 
-  // Анимация текста
-  textElements.forEach((el, i) => {
+  textEls.forEach((el, i) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     setTimeout(() => {
       el.style.transition = 'all 0.6s ease-out';
       el.style.opacity = '1';
       el.style.transform = 'translateY(0)';
-    }, i * 100);
+    }, i * 150);
   });
 
-  // Анимация кнопки Telegram
   telegramBtn.style.opacity = '0';
   telegramBtn.style.transform = 'translateY(30px)';
   setTimeout(() => {
@@ -110,15 +54,4 @@ function animateHomeSection() {
 }
 
 // === Запуск анимации при загрузке страницы ===
-window.addEventListener('load', () => {
-  animateHomeSection();
-  
-  // Включаем pointer-events для видимой секции при загрузке
-  sections.forEach(sec => {
-    if(sec.classList.contains('visible')){
-      sec.style.pointerEvents = 'auto';
-    } else {
-      sec.style.pointerEvents = 'none';
-    }
-  });
-});
+window.addEventListener('load', () => animateHomeSection());
