@@ -50,3 +50,27 @@ restoreBtn.addEventListener('click', e => {
 
 closeBtn.addEventListener('click', hidePopup);
 overlay.addEventListener('click', hidePopup);
+
+// ---------------------------------------------------
+// Нижнее меню – плавная прокрутка к секциям
+function scrollToSection(section) {
+  let yOffset = -70; // смещение сверху
+  let element;
+
+  switch(section) {
+    case 'home':
+      element = document.querySelector('.content');
+      break;
+    case 'news':
+      element = document.getElementById('update-list');
+      break;
+    case 'tech':
+      element = document.querySelector('.faq');
+      break;
+  }
+
+  if(element) {
+    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
