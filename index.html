@@ -4,417 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Игровой чат-бот FernieUIBot</title>
-  <style>
-    /* Общие стили */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      height: 100%;
-      margin: 0;
-      padding: 20px;
-      box-sizing: border-box;
-      overflow-y: auto;
-      transition: background-color 0.5s ease, color 0.5s ease; /* Плавный переход */
-    }
-
-    .dark-theme { background-color: #111; color: #fff; }
-    .light-theme { background-color: #fff; color: #111; }
-
-    /* Кнопка смены темы - теперь закреплена вверху */
-    #theme-toggle-btn {
-      position: fixed;
-      top: 10px; /* Установим чуть ниже для лучшего размещения */
-      left: 20px;
-      background: linear-gradient(45deg, #ff7f00, #d70000, #ff7f00, #d70000);
-      background-size: 400% 400%;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.3em;
-      font-weight: bold;
-      border-radius: 10px;
-      cursor: pointer;
-      animation: colorShift 5s linear infinite, fadeIn 1.5s ease 0.5s forwards;
-      opacity: 1;
-      transform: scale(1);
-      transition: box-shadow 0.4s ease, transform 0.2s, background 0.6s ease;
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
-      z-index: 1000; /* Убедимся, что кнопка находится поверх всего */
-    }
-
-    #theme-toggle-btn:hover {
-      box-shadow: 0 0 35px rgba(255, 0, 0, 0.9);
-      transform: scale(1.05);
-    }
-
-    #theme-toggle-btn:active {
-      transform: scale(0.95);
-    }
-
-    @keyframes colorShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    h1 {
-      font-size: 3em;
-      margin-bottom: 30px;
-      background: linear-gradient(45deg, #d70000, #ff7f00, #ff0000, #ffff00);
-      background-size: 400% 400%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shimmer 5s ease infinite, fadeInUp 2s ease forwards;
-    }
-
-    @keyframes shimmer {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .content {
-      text-align: center;
-      max-width: 1000px;
-      width: 100%;
-      opacity: 0;
-      animation: fadeInUp 2s ease 1s forwards;
-      margin-top: 70px; /* Добавим отступ сверху для текста */
-    }
-
-    p {
-      font-size: 1.2em;
-      margin-bottom: 20px;
-      color: #bbb;
-      opacity: 0;
-      animation: fadeInUp 2s ease 1.5s forwards;
-    }
-
-    .faq {
-      font-size: 1.1em;
-      margin-top: 40px;
-      text-align: left;
-      background-color: rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      border-radius: 8px;
-      opacity: 0;
-      animation: fadeInUp 2s ease 2s forwards;
-    }
-
-    .faq h2 { color: #ffcc00; }
-    .faq ul { list-style-type: none; padding: 0; }
-    .faq li { margin: 10px 0; color: #bbb; }
-    .faq li:hover { color: #ff0080; }
-
-    .buttons-container {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      margin-top: 30px;
-      opacity: 0;
-      animation: fadeInUp 2s ease 3.5s forwards;
-      flex-wrap: wrap; /* Делаем кнопки адаптивными */
-    }
-
-    #telegram-button, #toggle-commands, #toggle-update {
-      background: linear-gradient(270deg, #ff7f00, #ff0000, #ff7f00);
-      background-size: 400% 400%;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.3em;
-      font-weight: bold;
-      border-radius: 10px;
-      cursor: pointer;
-      animation: buttonGlow 8s ease infinite, fadeInUp 2s ease 2.5s forwards;
-      transition: box-shadow 0.4s ease, transform 0.2s;
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
-      margin-top: 20px;
-      flex-shrink: 0; /* Блокирует сжатие кнопок */
-    }
-
-    #telegram-button:hover, #toggle-commands:hover, #toggle-update:hover {
-      box-shadow: 0 0 35px rgba(255, 0, 0, 0.9);
-      transform: scale(1.05);
-    }
-
-    #telegram-button:active, #toggle-commands:active, #toggle-update:active {
-      transform: scale(0.95);
-    }
-
-    @keyframes buttonGlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .command-section, .update-section {
-      margin-top: 40px;
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.75);
-      border-radius: 10px;
-      opacity: 0;
-      transform: scale(0.8);
-      max-height: 0;
-      overflow-y: hidden;
-      transition: all 0.8s ease;
-    }
-
-    .command-section.visible, .update-section.visible {
-      opacity: 1;
-      transform: scale(1);
-      max-height: 1000px;
-      height: auto;
-      overflow-y: auto;
-    }
-
-    .command-section h3, .update-section h3 { color: #ffcc00; }
-    .command-section ul, .update-section ul {
-      list-style-type: none;
-      padding: 0;
-      font-size: 1.1em;
-      color: #ccc;
-    }
-
-    .command-section li, .update-section li {
-      padding: 6px 0;
-      border-bottom: 1px solid #333;
-    }
-
-    .command-section li:hover, .update-section li:hover { color: #ff0080; }
-
-    /* Медиазапросы для мобильных устройств */
-    @media (max-width: 768px) {
-      body {
-        padding: 10px;
-      }
-
-      h1 {
-        font-size: 2em;
-      }
-
-      p {
-        font-size: 1.1em;
-      }
-
-      .buttons-container {
-        gap: 10px;
-        flex-direction: column;
-      }
-
-      #theme-toggle-btn {
-        padding: 12px 20px;
-        font-size: 1.1em;
-        display: none; /* Скрываем кнопку на мобильных устройствах */
-      }
-
-      #telegram-button, #toggle-commands, #toggle-update {
-        padding: 12px 20px;
-        font-size: 1.1em;
-      }
-
-      .faq {
-        font-size: 1em;
-      }
-
-      .command-section ul, .update-section ul {
-        font-size: 1em;
-      }
-    }
-
-    /* Анимация появления */
-@keyframes fadeInScale {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-/* Анимация исчезновения */
-@keyframes fadeOutScale {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8);
-  }
-}
-
-/* Модалка */
-#restore-popup {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  background: #222;
-  color: white;
-  padding: 20px 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px #ff0000;
-  z-index: 2000;
-  min-width: 280px;
-  max-width: 90%;
-  text-align: center;
-  font-size: 1.1em;
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.8);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-/* Показать с анимацией */
-#restore-popup.show {
-  display: block;
-  animation: fadeInScale 0.3s forwards;
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-/* Скрыть с анимацией */
-#restore-popup.hide {
-  animation: fadeOutScale 0.3s forwards;
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.8);
-}
-
-/* Затемнение */
-#overlay {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7);
-  z-index: 1999;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-#overlay.show {
-  display: block;
-  opacity: 1;
-}
-
-#overlay.hide {
-  opacity: 0;
-}
-
-/* Крестик ближе к углу */
-#close-popup {
-  position: absolute;
-  top: 6px;
-  right: 8px;
-  background: transparent;
-  border: none;
-  font-size: 1.6em;
-  color: white;
-  cursor: pointer;
-  line-height: 1;
-  padding: 0;
-  user-select: none;
-}
-    
-#restore-account-btn {
-  position: fixed;
-  bottom: 16px;
-  right: 16px;
-  background: linear-gradient(270deg, #ffeb3b, #00c853, #ffeb3b);
-  background-size: 600% 600%;
-  color: white;
-  padding: 10px 16px;
-  font-weight: bold;
-  font-size: 1rem;
-  border-radius: 10px;
-  text-decoration: none;
-  box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
-  z-index: 1000;
-  animation: colorFlow 5s ease infinite;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  max-width: 90%;
-  word-break: break-word;
-  text-align: center;
-}
-
-#restore-account-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255, 255, 0, 0.8), 0 0 30px rgba(0, 200, 83, 0.8);
-}
-
-@keyframes colorFlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Адаптация под маленькие экраны */
-@media (max-width: 480px) {
-  #restore-account-btn {
-    bottom: 12px;
-    right: 12px;
-    font-size: 0.9rem;
-    padding: 8px 14px;
-    border-radius: 8px;
-  }
-}
-
-
-    @media (max-width: 480px) {
-      #telegram-button, #toggle-commands, #toggle-update {
-        padding: 10px 15px;
-        font-size: 1em;
-      }
-
-      h1 {
-        font-size: 1.8em;
-      }
-
-      p {
-        font-size: 1em;
-      }
-
-      .faq {
-        font-size: 0.9em;
-      }
-
-      .command-section ul, .update-section ul {
-        font-size: 0.9em;
-      }
-    }
-
-    /* Эффект подсветки кнопки при наведении */
-    #telegram-button:hover, #toggle-commands:hover, #toggle-update:hover {
-      box-shadow: 0 0 20px 5px yellow;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body class="dark-theme">
-  <button id="theme-toggle-btn" onclick="toggleTheme()">Сменить тему</button>
+  <button id="theme-toggle-btn">Сменить тему</button>
+
   <div class="content">
     <h1>Добро пожаловать в FernieUIBot!</h1>
     <p>Этот бот создан для развлечения в чате с друзьями. Присоединяйтесь, играйте, соревнуйтесь и получайте удовольствие от игры!</p>
 
     <div class="buttons-container">
-      <button id="telegram-button" onclick="window.location.href = 'https://t.me/FernieUIBot'">Перейти в Telegram Бота</button>
-      <button id="toggle-commands" onclick="toggleSection('commands')">Список команд</button>
-      <button id="toggle-update" onclick="toggleSection('update')">Обновления</button>
+      <button id="telegram-button" onclick="window.location.href='https://t.me/FernieUIBot'">Перейти в Telegram Бота</button>
+      <button id="toggle-commands">Список команд</button>
+      <button id="toggle-update">Обновления</button>
     </div>
 
     <div id="commands-list" class="command-section">
@@ -430,105 +32,45 @@
         <li><strong>⚠ Модерация:</strong> /warn </li>
       </ul>
     </div>
+
+    <div id="update-list" class="update-section">
+      <h3>Обновления | FernieUI 12.0 Global | Дата неизвестна</h3>
+      <p style="text-align:center;">🛠️ Тех. Обновление</p>
+      <p style="text-align:center;">❓Что мы сейчас делаем?</p>
+      <ul>
+        <li>🧠 Пишем нового бота с нуля!</li>
+      </ul>
+      <p style="text-align:center;">🤔 Зачем?</p>
+      <ul>
+        <li>⚙️ Чтобы бот работал плавнее и корректнее! Переносим с .json на SqLite3!</li>
+      </ul>
+      <p style="text-align:center;">📦 На данный момент бот находится на этапе разработки.</p>
+      <p style="text-align:center;">✅ Набор на тестировщика завершён.</p>
+    </div>
   </div>
 
-<div id="update-list" class="update-section">
-  <h3>Обновления | FernieUI 12.0 Global | Дата неизвестна</h3>
-
-  <p style="text-align: center;">🛠️ Тех. Обновление</p>
-
-  <p style="text-align: center;">❓Что мы сейчас делаем?</p>
-  <ul>
-    <li>🧠 Пишем нового бота с нуля!</li>
-  </ul>
-
-  <p style="text-align: center;">🤔 Зачем?</p>
-  <ul>
-    <li>⚙️ Чтобы бот работал плавнее и корректнее! Ведь мы переносим его с базы данных .json на более современную SqLite3!</li>
-  </ul>
-
-  <p style="text-align: center;">📦 На данный момент бот находится на этапе разработки.</p>
-  <p style="text-align: center;">✅ Набор на тестировщика завершён.</p>
-</div>
-
   <div id="restore-popup">
-  <button id="close-popup">×</button>
-  Время для восстановления вышло.
-</div>
+    <button id="close-popup">×</button>
+    Время для восстановления вышло.
+  </div>
 
-<div id="overlay"></div>
-
-<a href="#" id="restore-account-btn">Восстановить аккаунт</a>
+  <div id="overlay"></div>
+  <a href="#" id="restore-account-btn">Восстановить аккаунт</a>
 
   <div class="faq">
     <h2>❓ Часто задаваемые вопросы</h2>
     <ul>
-      <li><strong>Как переключить тему?</strong> Нажмите на кнопку с изображением 🌙 / 🌞 в верхнем левом углу.</li>
-      <li><strong>Какие команды доступны в боте?</strong> Список команд можно увидеть, нажав на кнопку "Список команд".</li>
-      <li><strong>Что такое система такси?</strong> Система такси позволяет зарабатывать монеты и очки, выполняя заказы как таксист.</li>
-      <li><strong>Как использовать магазин?</strong> В магазине можно покупать товары и предметы для улучшения своего профиля.</li>
+      <li><strong>Как переключить тему?</strong> Нажмите на кнопку с изображением 🌙 / 🌞.</li>
+      <li><strong>Какие команды доступны?</strong> Список команд можно увидеть, нажав "Список команд".</li>
+      <li><strong>Что такое система такси?</strong> Заказы позволяют зарабатывать монеты и очки.</li>
+      <li><strong>Как использовать магазин?</strong> Покупка товаров для улучшения профиля.</li>
     </ul>
   </div>
 
-    <div class="footer">
-      <p>Все права защищены сервисом FernieUI. Использование данного сервиса подразумевает согласие с условиями и политикой конфиденциальности.</p>
-    </div>
+  <div class="footer">
+    <p>Все права защищены сервисом FernieUI. Использование сервиса подразумевает согласие с условиями и политикой конфиденциальности.</p>
   </div>
-  <script>
-    function toggleTheme() {
-      var body = document.body;
-      body.classList.toggle("dark-theme");
-      body.classList.toggle("light-theme");
-    }
 
-    function toggleSection(section) {
-      var sectionElement = document.getElementById(section + '-list');
-      sectionElement.classList.toggle('visible');
-    }
-const popup = document.getElementById('restore-popup');
-const overlay = document.getElementById('overlay');
-const closeBtn = document.getElementById('close-popup');
-const restoreBtn = document.getElementById('restore-account-btn');
-
-function showPopup() {
-  popup.classList.remove('hide');
-  popup.classList.add('show');
-  overlay.classList.remove('hide');
-  overlay.classList.add('show');
-  popup.style.display = 'block';
-  overlay.style.display = 'block';
-}
-
-function hidePopup() {
-  popup.classList.remove('show');
-  popup.classList.add('hide');
-  overlay.classList.remove('show');
-  overlay.classList.add('hide');
-
-  // По окончании анимации скрываем полностью
-  popup.addEventListener('animationend', () => {
-    if (popup.classList.contains('hide')) {
-      popup.style.display = 'none';
-    }
-  }, { once: true });
-
-  // Для overlay скрываем после перехода opacity
-  setTimeout(() => {
-    if (overlay.classList.contains('hide')) {
-      overlay.style.display = 'none';
-    }
-  }, 300);
-}
-
-restoreBtn.addEventListener('click', function(event) {
-  event.preventDefault();
-  showPopup();
-});
-
-closeBtn.addEventListener('click', hidePopup);
-overlay.addEventListener('click', hidePopup);
-
-
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
